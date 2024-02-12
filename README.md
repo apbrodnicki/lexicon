@@ -1,4 +1,13 @@
-# Getting Started with Create React App
+# Lexicon
+
+This is an application that showcases a user's favorite list of words.\
+If you want to use it and make your own favorites, simply edit the values in `src/data.ts`.
+
+## Packages
+
+This is a React/Typescript project that uses Material UI and React Router.
+
+# React Related Documentation
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

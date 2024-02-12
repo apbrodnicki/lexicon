@@ -1,4 +1,4 @@
-export const words: string[] = [
+export const wordsList: string[] = [
 	'acquiesce',
 	'acumen',
 	'affliction',
@@ -26,6 +26,7 @@ export const words: string[] = [
 	'contrarian',
 	'contrite',
 	'corrigible',
+	'cunt',
 	'demiurge',
 	'dogma',
 	'dubious',

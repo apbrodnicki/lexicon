@@ -21,6 +21,9 @@
 		"@stylistic"
 	],
 	"rules": {
+		"@typescript-eslint/non-nullable-type-assertion-style": [
+			0
+		],
 		"@stylistic/eol-last": [
 			"error",
 			"always"

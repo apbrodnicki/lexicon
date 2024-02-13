@@ -5,7 +5,7 @@ If you want to use it and make your own favorites, simply edit the values in `sr
 
 ## Packages
 
-This is a React/Typescript project that uses Material UI and React Router.
+This is a React/Typescript project that uses Material UI, React Router, Express, and CORS.
 
 # React Related Documentation
 

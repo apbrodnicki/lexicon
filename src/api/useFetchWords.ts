@@ -15,7 +15,6 @@ export const useFetchWords = (props: useFetchWordsProps): Word[] => {
 	useEffect(() => {
 		const fetchData = async (): Promise<void> => {
 			try {
-				props.setIsLoadingWords(true);
 				const promises = props.wordsList.map(async (word: string) => await fetchWord(word));
 				const wordsData = await Promise.all(promises);
 				const filteredWords = wordsData.map(filterWordsData);

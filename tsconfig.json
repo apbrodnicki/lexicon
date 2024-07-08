@@ -1,0 +1,39 @@
+{
+	"compilerOptions": {
+		"allowImportingTsExtensions": true,
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": "./src",
+		"composite": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		"jsx": "react-jsx",
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext"
+		],
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"noEmit": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"removeComments": false,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"target": "es6",
+		"useDefineForClassFields": true
+	},
+	"include": [
+		"src",
+		"src/declaration.d.ts",
+		"src/vite-env.d.ts",
+		"vite.config.ts"
+	],
+	"exclude": [
+		"node_modules",
+	]
+}

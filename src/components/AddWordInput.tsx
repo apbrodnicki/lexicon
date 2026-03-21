@@ -39,12 +39,14 @@ export const AddWordInput = (): React.JSX.Element => {
 				value={word}
 				onChange={onChange}
 				onKeyUp={onKeyUp}
-				InputProps={{
-					endAdornment: (
-						<IconButton onClick={onClick} sx={{ mx: 0 }}>
-							<AddIcon />
-						</IconButton>
-					)
+				slotProps={{
+					input: {
+						endAdornment: (
+							<IconButton onClick={onClick} sx={{ mx: 0 }}>
+								<AddIcon />
+							</IconButton>
+						)
+					}
 				}}
 			/>
 		</Box>

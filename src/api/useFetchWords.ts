@@ -1,4 +1,4 @@
-import { filterWordDataWrapper, reduceArray } from 'helper';
+import { filterWordDataWrapper, reduceArray } from 'helper/helper';
 import type { Word } from 'models/models';
 import { useEffect, useState } from 'react';
 import { fetchWord } from './fetchWord';

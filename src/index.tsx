@@ -1,4 +1,4 @@
-import { App } from 'App';
+import { App } from 'components/App';
 import { ErrorPage } from 'components/ErrorPage';
 import React from 'react';
 import { createRoot } from 'react-dom/client';

@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
+import { LexiconListContext } from 'contexts/LexiconListContext';
+import { ShowOffensiveWordsContext } from 'contexts/ShowOffensiveWordsContext';
 import 'css/App.css';
+import type { Word } from 'models/models';
 import React, { useEffect, useState } from 'react';
-import { LexiconListContext } from '../contexts/LexiconListContext';
-import { ShowOffensiveWordsContext } from '../contexts/ShowOffensiveWordsContext';
-import type { Word } from '../models/models';
 import { AddWordInput } from './AddWordInput';
 import { Footer } from './Footer';
 import { Header } from './Header';
@@ -22,7 +22,7 @@ export const App = (): React.JSX.Element => {
 	}, [wordsList]);
 
 	return (
-		<Box id='lexicon'>
+		<Box id='lexicon' className='legal-pad'>
 			<ShowOffensiveWordsContext.Provider value={{ showOffensiveWords, setShowOffensiveWords }}>
 				<LexiconListContext.Provider value={{ wordsList, setWordsList }}>
 					<Header />

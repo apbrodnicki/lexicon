@@ -6,5 +6,43 @@ body {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	background-color: #FFFDD0;
+}
+
+.legal-pad {
+	background:
+		linear-gradient(
+			180deg,
+			rgb(106, 42, 27),
+			rgb(106, 42, 27) 9%,
+			transparent calc(9% + 2px)
+		),
+		linear-gradient(
+			90deg,
+			transparent 0%,
+			transparent 12%,
+			rgb(245, 196, 146) 12%,
+			rgb(245, 196, 146) calc(12% + 2px),
+			transparent calc(12% + 2px),
+			transparent calc(12% + 6px),
+			rgb(245, 196, 146) calc(12% + 6px),
+			rgb(245, 196, 146) calc(12% + 8px),
+			transparent calc(12% + 8px),
+			transparent 100%
+		),
+		linear-gradient(
+			180deg,
+			rgb(251, 238, 159) 22%,
+			transparent 22%
+		),
+		repeating-linear-gradient(
+			180deg,
+			rgb(201, 215, 152) 0px,
+			rgb(201, 215, 152) 2px,
+			transparent 2px,
+			transparent 36px
+		),
+		linear-gradient(
+			rgb(251, 238, 159),
+			rgb(251, 238, 159)
+		);
 }

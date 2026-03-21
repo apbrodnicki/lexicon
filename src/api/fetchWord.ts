@@ -1,4 +1,4 @@
-import type { GenericWordWrapper } from "models/genericModels";
+import type { GenericWordWrapper } from 'models/genericModels';
 
 export const fetchWord = async (word: string): Promise<GenericWordWrapper> => {
 	// .env not working in production right now, import.meta.env.DICTIONARY_TOKEN

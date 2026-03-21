@@ -1,12 +1,12 @@
 export interface GenericWord {
 	meta: {
-		id: string,
-		stems: string[],
-		offensive: boolean,
+		id: string;
+		stems: string[];
+		offensive: boolean;
 	},
-	fl: string,
-	shortdef: string[],
-	[key: string]: unknown
+	fl: string;
+	shortdef: string[];
+	[key: string]: unknown;
 }
 
-export interface GenericWordWrapper extends Array<GenericWord> {}
+export interface GenericWordWrapper extends Array<GenericWord> { }

@@ -8,12 +8,6 @@ export const Header = (): React.JSX.Element => {
 		setShowOffensiveWords(event.target.checked);
 	};
 
-	const StyledButton = styled(Button)(() => ({
-		textTransform: 'none',
-		color: 'black',
-		flex: 1
-	}));
-
 	return (
 		<Box m={2} display='flex' alignItems='center' justifyContent='center' flexDirection={{ xs: 'column', md: 'row' }}>
 			<Box flex={1} />
@@ -28,3 +22,9 @@ export const Header = (): React.JSX.Element => {
 		</Box>
 	);
 };
+
+const StyledButton = styled(Button)(() => ({
+	textTransform: 'none',
+	color: 'black',
+	flex: 1
+}));

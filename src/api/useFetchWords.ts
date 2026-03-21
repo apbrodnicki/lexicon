@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { fetchWord } from './fetchWord';
 
 interface useFetchWordsProps {
-	wordsList: string[]
+	wordsList: string[];
 }
 
 export const useFetchWords = ({ wordsList }: useFetchWordsProps): Word[] => {

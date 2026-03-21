@@ -22,7 +22,7 @@ export const App = (): React.JSX.Element => {
 	}, [wordsList]);
 
 	return (
-		<Box id='lexicon' className='legal-pad'>
+		<Box id='lexicon' className='page-layout legal-pad'>
 			<ShowOffensiveWordsContext.Provider value={{ showOffensiveWords, setShowOffensiveWords }}>
 				<LexiconListContext.Provider value={{ wordsList, setWordsList }}>
 					<Header />

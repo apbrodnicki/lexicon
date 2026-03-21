@@ -1,4 +1,4 @@
-import { Paper, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 import { Footer } from './Footer';
@@ -20,25 +20,19 @@ export const ErrorPage = (): React.JSX.Element => {
 	}
 
 	return (
-		<>
+		<Box className='page-layout legal-pad'>
 			<Header />
-			<Paper
-				elevation={3}
+			<Box
 				sx={{
-					mx: 'auto',
-					my: 15,
-					width: '33%',
-					backgroundColor: '#888888',
 					display: 'flex',
-					flexDirection: 'column',
 					justifyContent: 'center',
 					flex: 1
 				}}>
 				<Typography p={5} align='center'>
 					{errorMessage}
 				</Typography>
-			</Paper>
+			</Box>
 			<Footer />
-		</>
+		</Box>
 	);
 };

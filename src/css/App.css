@@ -1,8 +1,11 @@
 body {
 	margin: 0px;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
-#lexicon {
+.page-layout {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;

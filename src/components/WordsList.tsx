@@ -1,11 +1,12 @@
 import CloseIcon from '@mui/icons-material/Close';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { Box, Card, CardContent, CardHeader, Dialog, DialogTitle, IconButton, List, ListItem, ListItemButton, ListItemText, Typography, styled } from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Dialog, DialogTitle, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { LexiconListContext } from 'contexts/LexiconListContext';
 import { ShowOffensiveWordsContext } from 'contexts/ShowOffensiveWordsContext';
 import { capitalizeFirstLetter } from 'helper/helper';
 import type { Word } from 'models/models';
 import React, { useContext, useState } from 'react';
+import { StyledListItemButton } from './custom/Styles';
 // TODO:
 // Add option to choose which definition shows up on base list
 // Remove duplicate entries when adding new word
@@ -25,16 +26,6 @@ export const WordsList = (): React.JSX.Element => {
 		event.stopPropagation();
 		setWordsList(wordsList.filter((currentWord) => currentWord.id !== word.id));
 	};
-
-	const StyledListItemButton = styled(ListItemButton)(() => ({
-		'&:hover': {
-			boxShadow: `
-				0px 3px 3px -2px rgba(0, 0, 0, 0.2),
-				0px 3px 4px 0px rgba(0, 0, 0, 0.14),
-				0px 1px 8px 0px rgba(0, 0, 0, 0.12)
-			`
-		}
-	}));
 
 	return (
 		<Box

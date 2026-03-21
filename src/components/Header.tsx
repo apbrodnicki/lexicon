@@ -1,6 +1,7 @@
-import { Box, Button, FormControlLabel, FormGroup, Switch, Typography, styled } from '@mui/material';
+import { Box, FormControlLabel, FormGroup, Switch, Typography } from '@mui/material';
 import { ShowOffensiveWordsContext } from 'contexts/ShowOffensiveWordsContext';
 import React, { useContext } from 'react';
+import { StyledButton } from './custom/Styles';
 
 export const Header = (): React.JSX.Element => {
 	const { setShowOffensiveWords } = useContext(ShowOffensiveWordsContext);
@@ -22,9 +23,3 @@ export const Header = (): React.JSX.Element => {
 		</Box>
 	);
 };
-
-const StyledButton = styled(Button)(() => ({
-	textTransform: 'none',
-	color: 'black',
-	flex: 1
-}));

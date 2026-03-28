@@ -3,7 +3,7 @@
 		"allowImportingTsExtensions": true,
 		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
-		"baseUrl": "./src",
+		"baseUrl": "./src/react-app",
 		"composite": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
@@ -33,7 +33,7 @@
 		"useDefineForClassFields": true
 	},
 	"include": [
-		"src"
+		"src/react-app"
 	],
 	"exclude": [
 		"node_modules"

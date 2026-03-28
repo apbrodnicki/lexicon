@@ -7,4 +7,3 @@ tsconfig.tsbuildinfo
 
 # misc
 /.vscode
-.env.local

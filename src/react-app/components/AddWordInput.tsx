@@ -20,16 +20,11 @@ export const AddWordInput = (): React.JSX.Element => {
 		}
 	};
 
-	const onClick = (): void => {
-		fetchWord(word)
-			.then((genericWordWrapper) => {
-				const wordsToAdd = filterWordDataWrapper(genericWordWrapper);
-				setWordsList([...wordsList, ...wordsToAdd]);
-			})
-			.catch((error: unknown) => {
-				console.log('Error fetching words ->', error);
-			})
-			.finally(() => { setWord(''); });
+	const onClick = async (): Promise<void> => {
+		const genericWordWrapper = await fetchWord(word);
+		const filterWords = filterWordDataWrapper(genericWordWrapper);
+
+		setWordsList([...wordsList, ...filterWords]);
 	};
 
 	return (

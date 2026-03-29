@@ -8,3 +8,4 @@ tsconfig.tsbuildinfo
 # misc
 /.vscode
 .env
+.wrangler

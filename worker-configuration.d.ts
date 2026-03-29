@@ -7,6 +7,7 @@ declare namespace Cloudflare {
 	}
 	interface Env {
 		DICTIONARY_TOKEN: string;
+		'lexicon-db': D1Database;
 	}
 }
 interface Env extends Cloudflare.Env {}

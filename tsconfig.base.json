@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@shared/*": [
+				"src/shared/*"
+			],
+			"@react-app/*": [
+				"src/react-app/*"
+			],
+			"@worker/*": [
+				"src/worker/*"
+			]
+		}
+	}
+}

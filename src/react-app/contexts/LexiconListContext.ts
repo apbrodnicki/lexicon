@@ -1,4 +1,4 @@
-import type { Word } from 'models/models';
+import type { Word } from '@shared/models/models';
 import type React from 'react';
 import { createContext } from 'react';
 

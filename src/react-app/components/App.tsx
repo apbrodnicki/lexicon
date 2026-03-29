@@ -1,8 +1,8 @@
 import { Box } from '@mui/material';
-import { LexiconListContext } from 'contexts/LexiconListContext';
-import { ShowOffensiveWordsContext } from 'contexts/ShowOffensiveWordsContext';
+import { LexiconListContext } from '@react-app/contexts/LexiconListContext';
+import { ShowOffensiveWordsContext } from '@react-app/contexts/ShowOffensiveWordsContext';
+import type { Word } from '@shared/models/models';
 import 'css/App.css';
-import type { Word } from 'models/models';
 import React, { useEffect, useState } from 'react';
 import { AddWordInput } from './AddWordInput';
 import { Footer } from './Footer';

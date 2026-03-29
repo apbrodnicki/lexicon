@@ -1,10 +1,10 @@
 import CloseIcon from '@mui/icons-material/Close';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Box, Card, CardContent, CardHeader, Dialog, DialogTitle, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
-import { LexiconListContext } from 'contexts/LexiconListContext';
-import { ShowOffensiveWordsContext } from 'contexts/ShowOffensiveWordsContext';
-import { capitalizeFirstLetter } from 'helper/helper';
-import type { Word } from 'models/models';
+import { LexiconListContext } from '@react-app/contexts/LexiconListContext';
+import { ShowOffensiveWordsContext } from '@react-app/contexts/ShowOffensiveWordsContext';
+import { capitalizeFirstLetter } from '@shared/helper';
+import type { Word } from '@shared/models/models';
 import React, { useContext, useState } from 'react';
 import { StyledListItemButton } from './custom/Styles';
 // TODO:

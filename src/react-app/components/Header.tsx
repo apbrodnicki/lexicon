@@ -1,5 +1,5 @@
 import { Box, FormControlLabel, FormGroup, Switch, Typography } from '@mui/material';
-import { ShowOffensiveWordsContext } from 'contexts/ShowOffensiveWordsContext';
+import { ShowOffensiveWordsContext } from '@react-app/contexts/ShowOffensiveWordsContext';
 import React, { useContext } from 'react';
 import { StyledButton } from './custom/Styles';
 

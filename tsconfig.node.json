@@ -22,5 +22,6 @@
 	},
 	"include": [
 		"vite.config.ts"
-	]
+	],
+	"extends": "./tsconfig.base.json"
 }

@@ -3,7 +3,6 @@
 		"allowImportingTsExtensions": true,
 		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
-		"baseUrl": "./src/react-app",
 		"composite": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
@@ -33,9 +32,11 @@
 		"useDefineForClassFields": true
 	},
 	"include": [
-		"src/react-app"
+		"src/react-app",
+		"src/shared"
 	],
 	"exclude": [
 		"node_modules"
-	]
+	],
+	"extends": "./tsconfig.base.json"
 }

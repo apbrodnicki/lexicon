@@ -1,5 +1,5 @@
 import { Box, Link as MuiLink, Typography } from '@mui/material';
-import merriamWebsterLogo from 'assets/merriam-webster-logo.svg';
+import merriamWebsterLogo from '@react-app/assets/merriam-webster-logo.svg';
 import React from 'react';
 
 export const Footer = (): React.JSX.Element => {

@@ -1,7 +1,7 @@
 import type { Word } from '@shared/models/models';
 
 export const fetchWord = async (word: string): Promise<Word[]> => {
-	const response = await fetch(`/api/fetchWord?query=${word}`);
+	const response = await fetch(`/api/dictionary/fetchWord?query=${word}`);
 
 	if (!response.ok) {
 		const error = await response.text();

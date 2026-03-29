@@ -16,8 +16,8 @@ body {
 		linear-gradient(
 			180deg,
 			rgb(106, 42, 27),
-			rgb(106, 42, 27) 9%,
-			transparent calc(9% + 2px)
+			rgb(106, 42, 27) 85px,
+			transparent calc(85px + 2px)
 		),
 		linear-gradient(
 			90deg,

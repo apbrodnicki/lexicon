@@ -1,10 +1,4 @@
-import { Button, ListItemButton, styled } from '@mui/material';
-
-export const StyledButton = styled(Button)(() => ({
-	textTransform: 'none',
-	color: 'black',
-	flex: 1
-}));
+import { ListItemButton, styled } from '@mui/material';
 
 export const StyledListItemButton = styled(ListItemButton)(() => ({
 	'&:hover': {

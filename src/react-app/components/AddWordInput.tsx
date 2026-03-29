@@ -21,8 +21,10 @@ export const AddWordInput = (): React.JSX.Element => {
 
 	const onClick = async (): Promise<void> => {
 		try {
-			const words = await fetchWord(word);
-			setWordsList([...wordsList, ...words]);
+			if (word.length > 0) {
+				const words = await fetchWord(word);
+				setWordsList([...wordsList, ...words]);
+			}
 		} catch (error) {
 			alert(error);
 		}

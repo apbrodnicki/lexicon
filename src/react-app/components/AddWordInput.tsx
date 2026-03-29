@@ -2,7 +2,6 @@ import AddIcon from '@mui/icons-material/Add';
 import { Box, IconButton, TextField } from '@mui/material';
 import { fetchWord } from '@react-app/api/fetchWord';
 import { LexiconListContext } from '@react-app/contexts/LexiconListContext';
-import { filterWordDataWrapper } from '@shared/helper';
 import React, { useContext, useState } from 'react';
 
 export const AddWordInput = (): React.JSX.Element => {
@@ -21,10 +20,8 @@ export const AddWordInput = (): React.JSX.Element => {
 	};
 
 	const onClick = async (): Promise<void> => {
-		const genericWordWrapper = await fetchWord(word);
-		const filterWords = filterWordDataWrapper(genericWordWrapper);
-
-		setWordsList([...wordsList, ...filterWords]);
+		const words = await fetchWord(word);
+		setWordsList([...wordsList, ...words]);
 	};
 
 	return (

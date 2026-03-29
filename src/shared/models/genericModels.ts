@@ -8,5 +8,3 @@ export interface GenericWord {
 	shortdef: string[];
 	[key: string]: unknown;
 }
-
-export interface GenericWordWrapper extends Array<GenericWord> { }

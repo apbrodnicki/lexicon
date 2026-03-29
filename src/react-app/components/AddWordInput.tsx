@@ -14,14 +14,19 @@ export const AddWordInput = (): React.JSX.Element => {
 	};
 
 	const onKeyUp = (event: React.KeyboardEvent<HTMLDivElement>): void => {
-		if (event.key === 'Enter') {
+		if (event.key === 'Enter' && word.length > 0) {
 			onClick();
 		}
 	};
 
 	const onClick = async (): Promise<void> => {
-		const words = await fetchWord(word);
-		setWordsList([...wordsList, ...words]);
+		try {
+			const words = await fetchWord(word);
+			setWordsList([...wordsList, ...words]);
+		} catch (error) {
+			alert(error);
+		}
+
 	};
 
 	return (

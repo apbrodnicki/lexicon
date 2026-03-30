@@ -1,0 +1,66 @@
+.legal-pad {
+	background:
+		linear-gradient(
+			180deg,
+			rgb(106, 42, 27),
+			rgb(106, 42, 27) 85px,
+			transparent calc(85px + 2px)
+		),
+		linear-gradient(
+			90deg,
+			transparent 0%,
+			transparent 100px,
+			rgb(245, 196, 146) 100px,
+			rgb(245, 196, 146) calc(100px + 2px),
+			transparent calc(100px + 2px),
+			transparent calc(100px + 6px),
+			rgb(245, 196, 146) calc(100px + 6px),
+			rgb(245, 196, 146) calc(100px + 8px),
+			transparent calc(100px + 8px),
+			transparent 100%
+		),
+		linear-gradient(
+			180deg,
+			rgb(251, 238, 159) 22%,
+			transparent 22%
+		),
+		repeating-linear-gradient(
+			180deg,
+			rgb(201, 215, 152) 0px,
+			rgb(201, 215, 152) 2px,
+			transparent 2px,
+			transparent 36px
+		),
+		linear-gradient(
+			rgb(251, 238, 159),
+			rgb(251, 238, 159)
+		);
+}
+
+@media (max-width: 600px) {
+	.legal-pad {
+		background:
+			linear-gradient(
+				180deg,
+				rgb(106, 42, 27),
+				rgb(106, 42, 27) 85px,
+				transparent calc(85px + 2px)
+			),
+			linear-gradient(
+				180deg,
+				rgb(251, 238, 159) 22%,
+				transparent 22%
+			),
+			repeating-linear-gradient(
+				180deg,
+				rgb(201, 215, 152) 0px,
+				rgb(201, 215, 152) 2px,
+				transparent 2px,
+				transparent 36px
+			),
+			linear-gradient(
+				rgb(251, 238, 159),
+				rgb(251, 238, 159)
+			);
+	}
+}

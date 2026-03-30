@@ -1,12 +1,12 @@
 import { Box } from '@mui/material';
 import { LexiconListContext } from '@react-app/contexts/LexiconListContext';
 import { ShowOffensiveWordsContext } from '@react-app/contexts/ShowOffensiveWordsContext';
-import '@react-app/css/App.css';
 import type { Word } from '@shared/models/models';
 import React, { useEffect, useState } from 'react';
 import { AddWordInput } from './AddWordInput';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { RevealSwitch } from './RevealSwitch';
 import { WordsList } from './WordsList';
 
 export const App = (): React.JSX.Element => {
@@ -27,6 +27,7 @@ export const App = (): React.JSX.Element => {
 				<LexiconListContext.Provider value={{ wordsList, setWordsList }}>
 					<Header />
 					<AddWordInput />
+					<RevealSwitch />
 					<WordsList />
 					<Footer />
 				</LexiconListContext.Provider>

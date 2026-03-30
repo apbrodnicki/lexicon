@@ -1,11 +1,11 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import '@react-app/css/app.css';
-import '@react-app/css/legal-pad.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { App } from './components/App';
 import { ErrorPage } from './components/ErrorPage';
+import './css/app.css';
+import './css/legal-pad.css';
 import { theme } from './theme';
 
 const router = createBrowserRouter([

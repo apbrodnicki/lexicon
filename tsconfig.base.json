@@ -5,8 +5,8 @@
 			"@shared/*": [
 				"src/shared/*"
 			],
-			"@react-app/*": [
-				"src/react-app/*"
+			"@client/*": [
+				"src/client/*"
 			],
 			"@worker/*": [
 				"src/worker/*"

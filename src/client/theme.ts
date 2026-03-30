@@ -1,8 +1,8 @@
+import CourierPrimeBold from '@client/assets/font/CourierPrime-Bold.ttf';
+import CourierPrimeBoldItalic from '@client/assets/font/CourierPrime-BoldItalic.ttf';
+import CourierPrimeItalic from '@client/assets/font/CourierPrime-Italic.ttf';
+import CourierPrimeRegular from '@client/assets/font/CourierPrime-Regular.ttf';
 import { createTheme } from '@mui/material';
-import CourierPrimeBold from '@react-app/assets/font/CourierPrime-Bold.ttf';
-import CourierPrimeBoldItalic from '@react-app/assets/font/CourierPrime-BoldItalic.ttf';
-import CourierPrimeItalic from '@react-app/assets/font/CourierPrime-Italic.ttf';
-import CourierPrimeRegular from '@react-app/assets/font/CourierPrime-Regular.ttf';
 
 export const theme = createTheme({
 	components: {

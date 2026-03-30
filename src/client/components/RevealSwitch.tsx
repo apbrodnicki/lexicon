@@ -1,5 +1,5 @@
+import { ShowOffensiveWordsContext } from '@client/contexts/ShowOffensiveWordsContext';
 import { FormControlLabel, FormGroup, Switch } from '@mui/material';
-import { ShowOffensiveWordsContext } from '@react-app/contexts/ShowOffensiveWordsContext';
 import { useContext } from 'react';
 
 export const RevealSwitch = (): React.JSX.Element => {

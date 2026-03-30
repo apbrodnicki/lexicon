@@ -32,7 +32,7 @@
 		"useDefineForClassFields": true
 	},
 	"include": [
-		"src/react-app",
+		"src/client",
 		"src/shared"
 	],
 	"exclude": [

@@ -7,6 +7,7 @@ declare namespace Cloudflare {
 	}
 	interface Env {
 		DICTIONARY_TOKEN: string;
+		JWT_SECRET: string;
 		'lexicon-db': D1Database;
 	}
 }

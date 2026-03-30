@@ -10,7 +10,7 @@ export const RevealSwitch = (): React.JSX.Element => {
 	};
 
 	return (
-		<FormGroup sx={{ flex: 1, alignItems: 'center', mt: { xs: 1, md: 0 } }}>
+		<FormGroup sx={{ flex: 1, alignItems: 'center' }}>
 			<FormControlLabel control={<Switch onChange={onChange} />} label='Reveal offensive words' />
 		</FormGroup>
 	);

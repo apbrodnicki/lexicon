@@ -1,8 +1,8 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
-import { Footer } from './Footer';
-import { Header } from './Header';
+import { Footer } from './runner/Footer';
+import { Header } from './runner/Header';
 
 export const ErrorPage = (): React.JSX.Element => {
 	const error = useRouteError();

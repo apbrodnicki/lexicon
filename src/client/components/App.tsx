@@ -6,9 +6,9 @@ import { Box } from '@mui/material';
 import type { Word } from '@shared/models/models';
 import React, { useEffect, useState } from 'react';
 import { AddWordInput } from './AddWordInput';
-import { Footer } from './Footer';
-import { Header } from './Header';
 import { RevealSwitch } from './RevealSwitch';
+import { Footer } from './runner/Footer';
+import { Header } from './runner/Header';
 import { WordsList } from './WordsList';
 
 export const App = (): React.JSX.Element => {

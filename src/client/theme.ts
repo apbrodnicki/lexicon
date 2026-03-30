@@ -37,5 +37,10 @@ export const theme = createTheme({
 	},
 	typography: {
 		fontFamily: 'CourierPrime'
+	},
+	palette: {
+		primary: {
+			main: '#3b3c4d'
+		}
 	}
 });

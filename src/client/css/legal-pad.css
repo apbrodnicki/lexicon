@@ -64,3 +64,19 @@
 		);
 	}
 }
+
+.MuiDialog-root .note-card {
+	background:
+		repeating-linear-gradient( /* horizontal lines */
+			180deg,
+			#c9d798 0px,
+			#c9d798 2px,
+			transparent 2px,
+			transparent 36px
+		),
+		linear-gradient( /* background */
+			#fbee9f,
+			#fbee9f
+		);
+}
+

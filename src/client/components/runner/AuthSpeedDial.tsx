@@ -3,6 +3,10 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
 import { useState } from 'react';
 
+interface AuthSpeedDialProps {
+	setAuthDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 interface SpeedDialActionInterface {
 	icon: React.JSX.Element;
 	name: 'Login' | 'Logout';
@@ -10,7 +14,7 @@ interface SpeedDialActionInterface {
 
 type ActionName = SpeedDialActionInterface['name'];
 
-export const AuthSpeedDial = (): React.JSX.Element => {
+export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.JSX.Element => {
 	const [atSmBreakpoint, setAtSmBreakpoint] = useState<boolean>(false);
 
 	const match = window.matchMedia('(min-width: 600px)');
@@ -28,7 +32,11 @@ export const AuthSpeedDial = (): React.JSX.Element => {
 	];
 
 	const onClick = (name: ActionName) => {
-		console.log(name);
+		if (name === 'Login') {
+			setAuthDialogOpen(true);
+		} else if (name === 'Logout') {
+			console.log('logout');
+		}
 	};
 
 	return (
@@ -36,7 +44,7 @@ export const AuthSpeedDial = (): React.JSX.Element => {
 			ariaLabel='Auth SpeedDial'
 			icon={<SpeedDialIcon />}
 			direction={atSmBreakpoint ? 'down' : 'left'}
-			color='primary'
+			color='primary.main'
 			sx={{
 				position: 'fixed',
 				top: '16px',

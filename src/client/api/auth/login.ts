@@ -1,4 +1,6 @@
-export const login = async (username: string, password: string) => {
+import type { Token } from '@shared/models/models';
+
+export const login = async (username: string, password: string): Promise<Token> => {
 	const response = await fetch('/api/auth/login', {
 		method: 'POST',
 		body: JSON.stringify({ username, password })

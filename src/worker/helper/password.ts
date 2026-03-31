@@ -39,7 +39,7 @@ export async function verifyPassword(passwordAttempt: string, storedHash: string
 	const matchResult = saltHex.match(/.{1,2}/g);
 
 	if (!matchResult) {
-		throw new Error('Invalid salt format');
+		throw new Error('Invalid salt format.');
 	}
 
 	const salt = new Uint8Array(matchResult.map((byte) => parseInt(byte, 16)));

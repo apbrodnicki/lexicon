@@ -28,4 +28,9 @@ export interface User {
 export interface Words {
 	wordId: number;
 	word: string;
+	definition: string;
+}
+
+export interface Token {
+	token: string;
 }

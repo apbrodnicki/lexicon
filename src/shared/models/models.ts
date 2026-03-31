@@ -31,6 +31,6 @@ export interface Words {
 	definition: string;
 }
 
-export interface Token {
-	token: string;
+export interface ApiResponse {
+	success: boolean;
 }

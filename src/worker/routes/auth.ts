@@ -1,6 +1,7 @@
 import type { User } from '@shared/models/models';
 import { hashPassword, verifyPassword } from '@worker/helper/password';
 import { Hono } from 'hono';
+import { deleteCookie, setCookie } from 'hono/cookie';
 import { HTTPException } from 'hono/http-exception';
 import { sign } from 'hono/jwt';
 
@@ -12,7 +13,7 @@ auth.post('/register', async (c) => {
 	const existingUser = await c.env['lexicon-db'].prepare(`
 		SELECT *
 		FROM Users
-		Where Username = ?
+		Where username = ?
 	`).bind(username).first();
 
 	if (existingUser !== null) {
@@ -22,7 +23,7 @@ auth.post('/register', async (c) => {
 	const hashedPassword = await hashPassword(password);
 
 	await c.env['lexicon-db'].prepare(`
-		INSERT INTO Users (Username, Password)
+		INSERT INTO Users (username, password)
 		VALUES (?, ?)
 	`).bind(username, hashedPassword).run();
 
@@ -35,7 +36,7 @@ auth.post('/login', async (c) => {
 	const existingUser = await c.env['lexicon-db'].prepare(`
 		SELECT *
 		FROM Users
-		WHERE Username = ?
+		WHERE username = ?
 	`).bind(username).first<User>();
 
 	if (existingUser === null) {
@@ -56,7 +57,21 @@ auth.post('/login', async (c) => {
 		c.env.JWT_SECRET
 	);
 
-	return c.json({ token });
+	setCookie(c, 'token', token, {
+		path: '/',
+		secure: true,
+		httpOnly: true,
+		sameSite: 'Strict',
+		maxAge: 60 * 60 // 60 minutes
+	});
+
+	return c.json({ success: true });
+});
+
+auth.post('/logout', async (c) => {
+	deleteCookie(c, 'token');
+
+	return c.json({ success: true });
 });
 
 export default auth;

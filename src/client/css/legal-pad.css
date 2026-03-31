@@ -1,12 +1,12 @@
 .legal-pad {
 	background:
-		linear-gradient(
+		linear-gradient( /* top */
 			180deg,
 			#6a2a1b,
 			#6a2a1b 85px,
 			transparent calc(85px + 2px)
 		),
-		linear-gradient(
+		linear-gradient( /* double vertical lines */
 			90deg,
 			transparent 0%,
 			transparent 100px,
@@ -19,19 +19,19 @@
 			transparent calc(100px + 8px),
 			transparent 100%
 		),
-		linear-gradient(
+		linear-gradient( /* header background */
 			180deg,
 			#fbee9f 22%,
 			transparent 22%
 		),
-		repeating-linear-gradient(
+		repeating-linear-gradient( /* horizontal lines */
 			180deg,
 			#c9d798 0px,
 			#c9d798 2px,
 			transparent 2px,
 			transparent 36px
 		),
-		linear-gradient(
+		linear-gradient( /* background */
 			#fbee9f,
 			#fbee9f
 		);

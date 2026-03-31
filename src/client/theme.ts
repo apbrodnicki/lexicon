@@ -40,7 +40,10 @@ export const theme = createTheme({
 	},
 	palette: {
 		primary: {
-			main: '#3b3c4d'
+			main: '#fbee9f'
+		},
+		secondary: {
+			main: '#6a2a1b'
 		}
 	}
 });

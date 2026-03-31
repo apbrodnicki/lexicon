@@ -13,8 +13,7 @@ export const Header = (): React.JSX.Element => {
 	};
 
 	return (
-		<Box display='flex' alignItems='center' justifyContent='center' flexDirection={{ xs: 'column', md: 'row' }}>
-			<Box flex={1} />
+		<Box mt={2} textAlign={'center'}>
 			<Typography variant='h3'>
 				Lexicon
 			</Typography>

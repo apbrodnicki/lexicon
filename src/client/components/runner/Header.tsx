@@ -17,9 +17,7 @@ export const Header = (): React.JSX.Element => {
 			<Typography variant='h3'>
 				Lexicon
 			</Typography>
-			<Box display={'flex'} flex={1} justifyContent={'end'}>
-				<AuthSpeedDial />
-			</Box>
+			<AuthSpeedDial />
 		</Box>
 	);
 };

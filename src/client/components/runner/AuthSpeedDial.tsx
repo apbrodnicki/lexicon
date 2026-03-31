@@ -1,3 +1,4 @@
+import { logout } from '@client/api/auth/logout';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
@@ -31,11 +32,12 @@ export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.
 		{ icon: <LoginIcon color='secondary' />, name: 'Login' }
 	];
 
-	const onClick = (name: ActionName) => {
+	const onClick = async (name: ActionName) => {
 		if (name === 'Login') {
 			setAuthDialogOpen(true);
 		} else if (name === 'Logout') {
-			console.log('logout');
+			const response = await logout();
+			console.log(response);
 		}
 	};
 

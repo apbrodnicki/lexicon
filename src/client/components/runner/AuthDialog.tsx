@@ -121,7 +121,7 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 						Login
 					</Button>
 				</DialogContent>
-				<Divider>Or</Divider>
+				<Divider>or</Divider>
 				<DialogContent sx={{
 					display: 'flex',
 					flexDirection: 'column'

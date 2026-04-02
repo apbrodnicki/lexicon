@@ -25,3 +25,7 @@ export const filterGenericWords = (genericWords: GenericWord[]): Word[] => {
 
 	return words;
 };
+
+export const isDidYouMeanResponse = (response: GenericWord[] | string[]) => {
+	return response.length > 0 && typeof response[0] === 'string';
+};

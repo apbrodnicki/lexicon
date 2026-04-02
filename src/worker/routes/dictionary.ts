@@ -1,6 +1,6 @@
 import type { GenericWord } from '@shared/models/genericModels';
 import type { Word } from '@shared/models/models';
-import { filterGenericWords } from '@worker/helper/filterApiData';
+import { filterGenericWords, isDidYouMeanResponse } from '@worker/helper/filterApiData';
 import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
 
@@ -16,9 +16,16 @@ dictionary.get('/fetchWord', async (c): Promise<Response> => {
 	}
 
 	const response = await fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${query}?key=${c.env.DICTIONARY_TOKEN}`);
-	const genericWords: GenericWord[] = await response.json();
 
-	return c.json<Word[]>(filterGenericWords(genericWords));
+	const genericWords: GenericWord[] | string[] | [] = await response.json();
+
+	if (genericWords.length === 0) {
+		throw new HTTPException(400, { message: 'Unable to find definition.' });
+	} else if (isDidYouMeanResponse(genericWords)) {
+		throw new HTTPException(400, { message: `Word not found. Did you mean... ${genericWords.splice(0, 3).join(', ')}?` });
+	}
+
+	return c.json<Word[]>(filterGenericWords(genericWords as GenericWord[]));
 });
 
 export default dictionary;

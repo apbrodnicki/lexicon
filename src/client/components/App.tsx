@@ -1,18 +1,28 @@
+import { AuthContext } from '@client/contexts/AuthContext';
 import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { ShowOffensiveWordsContext } from '@client/contexts/ShowOffensiveWordsContext';
+import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import '@client/css/app.css';
 import '@client/css/legal-pad.css';
 import { Box } from '@mui/material';
 import type { Word } from '@shared/models/models';
 import React, { useEffect, useState } from 'react';
 import { AddWordInput } from './AddWordInput';
+import { CustomSnackbar } from './custom/CustomSnackbar';
 import { RevealSwitch } from './RevealSwitch';
 import { Footer } from './runner/Footer';
 import { Header } from './runner/Header';
 import { WordsList } from './WordsList';
 
 export const App = (): React.JSX.Element => {
+	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
 	const [showOffensiveWords, setShowOffensiveWords] = useState<boolean>(false);
+
+	const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
+	const [snackbarMessage, setSnackbarMessage] = useState<string>('');
+	const [snackbarColor, setSnackbarColor] = useState<'success' | 'info' | 'warning' | 'error'>('info');
+
 	const [wordsList, setWordsList] = useState<Word[]>(() => {
 		const list = localStorage.getItem('lexicon-list');
 
@@ -25,15 +35,20 @@ export const App = (): React.JSX.Element => {
 
 	return (
 		<Box id='lexicon' className='page-layout legal-pad'>
-			<ShowOffensiveWordsContext.Provider value={{ showOffensiveWords, setShowOffensiveWords }}>
-				<LexiconListContext.Provider value={{ wordsList, setWordsList }}>
-					<Header />
-					<AddWordInput />
-					<RevealSwitch />
-					<WordsList />
-					<Footer />
-				</LexiconListContext.Provider>
-			</ShowOffensiveWordsContext.Provider>
+			<AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+				<ShowOffensiveWordsContext.Provider value={{ showOffensiveWords, setShowOffensiveWords }}>
+					<LexiconListContext.Provider value={{ wordsList, setWordsList }}>
+						<SnackbarContext.Provider value={{ snackbarOpen, setSnackbarOpen, snackbarMessage, setSnackbarMessage, snackbarColor, setSnackbarColor }}>
+							<Header />
+							<AddWordInput />
+							<RevealSwitch />
+							<WordsList />
+							<Footer />
+							<CustomSnackbar />
+						</SnackbarContext.Provider>
+					</LexiconListContext.Provider>
+				</ShowOffensiveWordsContext.Provider>
+			</AuthContext.Provider>
 		</Box>
 	);
 };

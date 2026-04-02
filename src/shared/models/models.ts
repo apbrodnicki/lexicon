@@ -1,4 +1,14 @@
-import type { GenericResponse } from './genericModels';
+
+export interface GenericWord {
+	meta: {
+		id: string;
+		stems: string[];
+		offensive: boolean;
+	};
+	fl: string;
+	shortdef: string[];
+	[key: string]: unknown;
+}
 
 export interface Word {
 	id: string;
@@ -31,18 +41,4 @@ export interface Words {
 	wordId: number;
 	word: string;
 	definition: string;
-}
-
-export interface LoginResponse extends GenericResponse {
-	user: UserResponse;
-}
-
-export interface UserResponse {
-	userId: number;
-	username: string;
-}
-
-export interface AuthRequest {
-	username: string;
-	password: string;
 }

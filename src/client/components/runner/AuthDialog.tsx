@@ -3,8 +3,7 @@ import { register } from '@client/api/auth/register';
 import { AuthContext } from '@client/contexts/AuthContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import { Box, Button, Dialog, DialogContent, DialogTitle, Divider, TextField } from '@mui/material';
-import type { GenericResponse } from '@shared/models/genericModels';
-import type { LoginResponse } from '@shared/models/models';
+import type { GenericResponse, LoginResponse } from '@shared/models/responses';
 import { useContext, useState } from 'react';
 
 interface AuthDialogProps {

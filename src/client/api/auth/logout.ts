@@ -1,4 +1,4 @@
-import type { GenericResponse } from '@shared/models/genericModels';
+import type { GenericResponse } from '@shared/models/responses';
 
 export const logout = async (): Promise<GenericResponse> => {
 	const response = await fetch('/api/auth/logout', { method: 'POST' });

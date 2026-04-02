@@ -1,5 +1,4 @@
-import type { GenericWord } from '@shared/models/genericModels';
-import type { PartsOfSpeech, Word } from '@shared/models/models';
+import type { GenericWord, PartsOfSpeech, Word } from '@shared/models/models';
 
 export const filterGenericWordData = (word: GenericWord): Word => {
 	return {

@@ -42,9 +42,9 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 				setIsAuthenticated(true);
 			} else {
 				response = await register(usernameValue, passwordValue);
-
-				handleClose();
 			}
+
+			handleClose();
 
 			setSnackbarOpen(true);
 			setSnackbarMessage(response.message);

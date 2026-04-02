@@ -21,8 +21,8 @@
 		),
 		linear-gradient( /* header background */
 			180deg,
-			#fbee9f 22%,
-			transparent 22%
+			#fbee9f 200px,
+			transparent 200px
 		),
 		repeating-linear-gradient( /* horizontal lines */
 			180deg,
@@ -39,29 +39,29 @@
 
 @media (max-width: 600px) {
 	.legal-pad {
-	background:
-		linear-gradient(
-			180deg,
-			#6a2a1b,
-			#6a2a1b 85px,
-			transparent calc(85px + 2px)
-		),
-		linear-gradient(
-			180deg,
-			#fbee9f 22%,
-			transparent 22%
-		),
-		repeating-linear-gradient(
-			180deg,
-			#c9d798 0px,
-			#c9d798 2px,
-			transparent 2px,
-			transparent 36px
-		),
-		linear-gradient(
-			#fbee9f,
-			#fbee9f
-		);
+		background:
+			linear-gradient(
+				180deg,
+				#6a2a1b,
+				#6a2a1b 85px,
+				transparent calc(85px + 2px)
+			),
+			linear-gradient(
+				180deg,
+				#fbee9f 200px,
+				transparent 200px
+			),
+			repeating-linear-gradient(
+				180deg,
+				#c9d798 0px,
+				#c9d798 2px,
+				transparent 2px,
+				transparent 36px
+			),
+			linear-gradient(
+				#fbee9f,
+				#fbee9f
+			);
 	}
 }
 

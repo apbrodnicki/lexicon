@@ -18,7 +18,7 @@ interface SpeedDialActionInterface {
 type ActionName = SpeedDialActionInterface['name'];
 
 export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.JSX.Element => {
-	const { setIsAuthenticated } = useContext(AuthContext);
+	const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
 
 	const [atSmBreakpoint, setAtSmBreakpoint] = useState<boolean>(false);
@@ -41,6 +41,10 @@ export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.
 		if (name === 'Login') {
 			setAuthDialogOpen(true);
 		} else if (name === 'Logout') {
+			if (!isAuthenticated) {
+				return;
+			}
+
 			const response = await logout();
 
 			setIsAuthenticated(false);

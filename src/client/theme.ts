@@ -44,6 +44,9 @@ export const theme = createTheme({
 		},
 		secondary: {
 			main: '#6a2a1b'
+		},
+		error: {
+			main: '#6a2a1b'
 		}
 	}
 });

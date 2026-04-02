@@ -1,11 +1,13 @@
 import { fetchWord } from '@client/api/fetchWord';
 import { LexiconListContext } from '@client/contexts/LexiconListContext';
+import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, IconButton, TextField } from '@mui/material';
 import React, { useContext, useState } from 'react';
 
 export const AddWordInput = (): React.JSX.Element => {
 	const { wordsList, setWordsList } = useContext(LexiconListContext);
+	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
 
 	const [word, setWord] = useState<string>('');
 
@@ -26,7 +28,11 @@ export const AddWordInput = (): React.JSX.Element => {
 				setWordsList([...wordsList, ...words]);
 			}
 		} catch (error) {
-			alert(error);
+			const message = String(error);
+
+			setSnackbarOpen(true);
+			setSnackbarMessage(message);
+			setSnackbarColor('error');
 		}
 
 	};

@@ -8,3 +8,7 @@ export interface GenericWord {
 	shortdef: string[];
 	[key: string]: unknown;
 }
+
+export interface GenericResponse {
+	message: string;
+}

@@ -1,3 +1,4 @@
+import { validate } from '@client/api/auth/validate';
 import { AuthContext } from '@client/contexts/AuthContext';
 import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { ShowOffensiveWordsContext } from '@client/contexts/ShowOffensiveWordsContext';
@@ -28,6 +29,30 @@ export const App = (): React.JSX.Element => {
 
 		return (list !== null) ? JSON.parse(list) : [];
 	});
+
+	useEffect(() => {
+		const validateUser = async (): Promise<void> => {
+			let message = '';
+
+			try {
+				const response = await validate();
+				message = response.message;
+
+				setIsAuthenticated(true);
+				setSnackbarColor('success');
+			} catch (error) {
+				message = String(error);
+
+				setIsAuthenticated(false);
+				setSnackbarColor('info');
+			} finally {
+				setSnackbarOpen(true);
+				setSnackbarMessage(message);
+			}
+		};
+
+		validateUser();
+	}, []);
 
 	useEffect(() => {
 		localStorage.setItem('lexicon-list', JSON.stringify(wordsList));

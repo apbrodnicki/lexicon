@@ -15,7 +15,7 @@ interface SpeedDialActionInterface {
 	name: 'Login' | 'Logout';
 }
 
-type ActionName = SpeedDialActionInterface['name'];
+type Action = SpeedDialActionInterface['name'];
 
 export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.JSX.Element => {
 	const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
@@ -32,15 +32,18 @@ export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.
 		return setAtSmBreakpoint(false);
 	});
 
-	const speedDialActions: SpeedDialActionInterface[] = [
-		{ icon: <LogoutIcon color='secondary' />, name: 'Logout' },
-		{ icon: <LoginIcon color='secondary' />, name: 'Login' }
-	];
+	const speedDialActions: SpeedDialActionInterface[] = [];
 
-	const onClick = async (name: ActionName) => {
-		if (name === 'Login') {
+	if (isAuthenticated) {
+		speedDialActions.push({ icon: <LogoutIcon color='secondary' />, name: 'Logout' });
+	} else {
+		speedDialActions.push({ icon: <LoginIcon color='secondary' />, name: 'Login' });
+	}
+
+	const handleClick = async (action: Action) => {
+		if (action === 'Login') {
 			setAuthDialogOpen(true);
-		} else if (name === 'Logout') {
+		} else if (action === 'Logout') {
 			if (!isAuthenticated) {
 				return;
 			}
@@ -71,7 +74,7 @@ export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.
 				<SpeedDialAction
 					key={action.name}
 					icon={action.icon}
-					onClick={() => onClick(action.name)}
+					onClick={() => handleClick(action.name)}
 					slotProps={{
 						tooltip: {
 							open: true,

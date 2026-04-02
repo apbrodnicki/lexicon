@@ -2,21 +2,33 @@ import type { GenericResponse } from '@shared/models/genericModels';
 import type { AuthRequest, LoginResponse, User } from '@shared/models/models';
 import { hashPassword, verifyPassword } from '@worker/helper/password';
 import { Hono } from 'hono';
-import { deleteCookie, setCookie } from 'hono/cookie';
+import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import { HTTPException } from 'hono/http-exception';
-import { sign } from 'hono/jwt';
+import { sign, verify } from 'hono/jwt';
 
 const auth = new Hono<{ Bindings: Env; }>();
 
-// auth.get('/validate', async (c): Promise<Response> => {
-// 	const token = getCookie(c, 'token');
+auth.get('/validate', async (c) => {
+	const token = getCookie(c, 'token');
 
-// 	if (token === undefined) {
-// 		throw new HTTPException(401, { message: 'Unauthorized' });
-// 	}
+	if (token === undefined) {
+		throw new HTTPException(401, { message: 'No credentials found.' });
+	}
 
-// 	return c.json({});
-// });
+	const payload = await verify(token, c.env.JWT_SECRET);
+
+	const existingUser = await c.env['lexicon-db'].prepare(`
+		SELECT *
+		FROM Users
+		Where userId = ?
+	`).bind(payload.userId).first<User>();
+
+	if (existingUser === null) {
+		throw new HTTPException(401, { message: 'Invalid credentials.' });
+	}
+
+	return c.json<LoginResponse>({ message: 'Validation success!', user: { userId: existingUser.userId, username: existingUser.username } });
+});
 
 auth.post('/register', async (c) => {
 	const { username, password } = await c.req.json<AuthRequest>();
@@ -26,7 +38,7 @@ auth.post('/register', async (c) => {
 		SELECT *
 		FROM Users
 		Where username = ?
-	`).bind(lowercaseUsername).first();
+	`).bind(lowercaseUsername).first<User>();
 
 	if (existingUser !== null) {
 		throw new HTTPException(400, { message: 'This username has already been registered.' });

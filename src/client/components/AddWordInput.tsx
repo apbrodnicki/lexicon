@@ -9,11 +9,11 @@ export const AddWordInput = (): React.JSX.Element => {
 
 	const [word, setWord] = useState<string>('');
 
-	const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		setWord(event.target.value);
 	};
 
-	const onKeyUp = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+	const handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>): void => {
 		if (event.key === 'Enter' && word.length > 0) {
 			onClick();
 		}
@@ -36,8 +36,9 @@ export const AddWordInput = (): React.JSX.Element => {
 			<TextField
 				label='Add a word'
 				value={word}
-				onChange={onChange}
-				onKeyUp={onKeyUp}
+				onChange={handleChange}
+				onKeyUp={handleKeyUp}
+				color='secondary'
 				slotProps={{
 					input: {
 						endAdornment: (

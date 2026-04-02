@@ -5,13 +5,13 @@ import { useContext } from 'react';
 export const RevealSwitch = (): React.JSX.Element => {
 	const { setShowOffensiveWords } = useContext(ShowOffensiveWordsContext);
 
-	const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		setShowOffensiveWords(event.target.checked);
 	};
 
 	return (
 		<FormGroup sx={{ alignItems: 'center' }}>
-			<FormControlLabel control={<Switch onChange={onChange} />} label='Reveal offensive words' />
+			<FormControlLabel control={<Switch color='secondary' onChange={handleChange} />} label='Reveal offensive words' />
 		</FormGroup>
 	);
 };

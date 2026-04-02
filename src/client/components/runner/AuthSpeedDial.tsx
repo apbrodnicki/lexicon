@@ -82,7 +82,8 @@ export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.
 							backgroundColor: 'unset',
 							boxShadow: 'unset',
 							top: atSmBreakpoint ? '13px' : '43px',
-							right: atSmBreakpoint ? '36px' : ''
+							right: atSmBreakpoint ? '36px' : '',
+							color: atSmBreakpoint ? 'secondary.main' : 'primary.main'
 						},
 						'& .MuiButtonBase-root': {
 							backgroundColor: 'primary.main'

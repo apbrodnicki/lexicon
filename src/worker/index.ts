@@ -1,3 +1,4 @@
+import { GenericResponse } from '@shared/models/models';
 import { Hono } from 'hono';
 import { getCookie } from 'hono/cookie';
 import { HTTPException } from 'hono/http-exception';
@@ -25,8 +26,8 @@ app.use('/api/*', async (c, next) => {
 	})(c, next);
 });
 
-app.route('/api/dictionary', dictionary);
 app.route('/api/auth', auth);
+app.route('/api/dictionary', dictionary);
 
 app.onError((error, c) => {
 	if (error instanceof HTTPException) {
@@ -35,7 +36,7 @@ app.onError((error, c) => {
 
 	console.error(error);
 
-	return c.text('Internal Server Error', 500);
+	return c.json<GenericResponse>({ message: 'Internal Server Error' }, 500);
 });
 
 export default app;

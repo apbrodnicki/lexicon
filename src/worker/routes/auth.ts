@@ -1,4 +1,4 @@
-import type { User } from '@shared/models/models';
+import type { GenericResponse, LoginResponse, User } from '@shared/models/models';
 import { hashPassword, verifyPassword } from '@worker/helper/password';
 import { Hono } from 'hono';
 import { deleteCookie, setCookie } from 'hono/cookie';
@@ -6,6 +6,16 @@ import { HTTPException } from 'hono/http-exception';
 import { sign } from 'hono/jwt';
 
 const auth = new Hono<{ Bindings: Env; }>();
+
+// auth.get('/validate', async (c): Promise<Response> => {
+// 	const token = getCookie(c, 'token');
+
+// 	if (token === undefined) {
+// 		throw new HTTPException(401, { message: 'Unauthorized' });
+// 	}
+
+// 	return c.json({});
+// });
 
 auth.post('/register', async (c) => {
 	const { username, password } = await c.req.json();
@@ -27,7 +37,7 @@ auth.post('/register', async (c) => {
 		VALUES (?, ?)
 	`).bind(username, hashedPassword).run();
 
-	return c.json({ success: true });
+	return c.json<GenericResponse>({ message: 'Registration success!' });
 });
 
 auth.post('/login', async (c) => {
@@ -65,13 +75,13 @@ auth.post('/login', async (c) => {
 		maxAge: 60 * 60 // 60 minutes
 	});
 
-	return c.json({ success: true });
+	return c.json<LoginResponse>({ message: 'Login success!', user: existingUser });
 });
 
 auth.post('/logout', async (c) => {
 	deleteCookie(c, 'token');
 
-	return c.json({ success: true });
+	return c.json<GenericResponse>({ message: 'Goodbye!' });
 });
 
 export default auth;

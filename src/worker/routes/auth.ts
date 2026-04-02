@@ -1,4 +1,5 @@
-import type { GenericResponse, LoginResponse, User } from '@shared/models/models';
+import type { GenericResponse } from '@shared/models/genericModels';
+import type { AuthRequest, LoginResponse, User } from '@shared/models/models';
 import { hashPassword, verifyPassword } from '@worker/helper/password';
 import { Hono } from 'hono';
 import { deleteCookie, setCookie } from 'hono/cookie';
@@ -18,13 +19,14 @@ const auth = new Hono<{ Bindings: Env; }>();
 // });
 
 auth.post('/register', async (c) => {
-	const { username, password } = await c.req.json();
+	const { username, password } = await c.req.json<AuthRequest>();
+	const lowercaseUsername = username.toLowerCase();
 
 	const existingUser = await c.env['lexicon-db'].prepare(`
 		SELECT *
 		FROM Users
 		Where username = ?
-	`).bind(username).first();
+	`).bind(lowercaseUsername).first();
 
 	if (existingUser !== null) {
 		throw new HTTPException(400, { message: 'This username has already been registered.' });
@@ -35,19 +37,20 @@ auth.post('/register', async (c) => {
 	await c.env['lexicon-db'].prepare(`
 		INSERT INTO Users (username, password)
 		VALUES (?, ?)
-	`).bind(username, hashedPassword).run();
+	`).bind(lowercaseUsername, hashedPassword).run();
 
 	return c.json<GenericResponse>({ message: 'Registration success!' });
 });
 
 auth.post('/login', async (c) => {
-	const { username, password } = await c.req.json();
+	const { username, password } = await c.req.json<AuthRequest>();
+	const lowercaseUsername = username.toLowerCase();
 
 	const existingUser = await c.env['lexicon-db'].prepare(`
 		SELECT *
 		FROM Users
 		WHERE username = ?
-	`).bind(username).first<User>();
+	`).bind(lowercaseUsername).first<User>();
 
 	if (existingUser === null) {
 		throw new HTTPException(401, { message: 'Invalid credentials.' });

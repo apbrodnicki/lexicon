@@ -24,6 +24,7 @@ export interface PartsOfSpeech {
 export interface User {
 	userId: number;
 	username: string;
+	password: string;
 }
 
 export interface Words {
@@ -33,7 +34,12 @@ export interface Words {
 }
 
 export interface LoginResponse extends GenericResponse {
-	user: User;
+	user: UserResponse;
+}
+
+export interface UserResponse {
+	userId: number;
+	username: string;
 }
 
 export interface AuthRequest {

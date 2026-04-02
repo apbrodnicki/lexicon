@@ -1,4 +1,4 @@
-import type { GenericResponse } from '@shared/models/models';
+import type { GenericResponse } from '@shared/models/genericModels';
 
 export const register = async (username: string, password: string): Promise<GenericResponse> => {
 	const response = await fetch('/api/auth/register', {

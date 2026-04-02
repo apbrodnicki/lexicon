@@ -78,7 +78,7 @@ auth.post('/login', async (c) => {
 		maxAge: 60 * 60 // 60 minutes
 	});
 
-	return c.json<LoginResponse>({ message: 'Login success!', user: existingUser });
+	return c.json<LoginResponse>({ message: 'Login success!', user: { userId: existingUser.userId, username: existingUser.username } });
 });
 
 auth.post('/logout', async (c) => {

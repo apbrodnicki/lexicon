@@ -1,4 +1,4 @@
-import { GenericResponse } from '@shared/models/models';
+import type { GenericResponse } from '@shared/models/genericModels';
 import { Hono } from 'hono';
 import { getCookie } from 'hono/cookie';
 import { HTTPException } from 'hono/http-exception';

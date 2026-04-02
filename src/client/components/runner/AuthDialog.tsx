@@ -3,7 +3,8 @@ import { register } from '@client/api/auth/register';
 import { AuthContext } from '@client/contexts/AuthContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import { Box, Button, Dialog, DialogContent, DialogTitle, Divider, TextField } from '@mui/material';
-import type { GenericResponse, LoginResponse } from '@shared/models/models';
+import type { GenericResponse } from '@shared/models/genericModels';
+import type { LoginResponse } from '@shared/models/models';
 import { useContext, useState } from 'react';
 
 interface AuthDialogProps {
@@ -21,7 +22,15 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 	const [usernameInputTouched, setUsernameInputTouched] = useState<boolean>(false);
 	const [passwordInputTouched, setPasswordInputTouched] = useState<boolean>(false);
 
-	const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
+	const handleClose = (): void => {
+		setAuthDialogOpen(false);
+		setUsernameValue('');
+		setPasswordValue('');
+		setUsernameInputTouched(false);
+		setPasswordInputTouched(false);
+	};
+
+	const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>): Promise<void> => {
 		try {
 			event.preventDefault();
 
@@ -33,6 +42,8 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 				setIsAuthenticated(true);
 			} else {
 				response = await register(usernameValue, passwordValue);
+
+				handleClose();
 			}
 
 			setSnackbarOpen(true);
@@ -51,7 +62,7 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 	return (
 		<Dialog
 			open={authDialogOpen}
-			onClose={() => setAuthDialogOpen(false)}
+			onClose={handleClose}
 			slotProps={{
 				paper: {
 					className: 'note-card'

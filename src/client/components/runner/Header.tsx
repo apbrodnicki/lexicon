@@ -8,7 +8,7 @@ export const Header = (): React.JSX.Element => {
 	const [authDialogOpen, setAuthDialogOpen] = useState<boolean>(false);
 
 	return (
-		<Box mt={2} textAlign={'center'}>
+		<Box m={2} textAlign={'center'}>
 			<Typography variant='h3'>
 				Lexicon
 			</Typography>

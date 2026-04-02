@@ -1,7 +1,7 @@
-import AddIcon from '@mui/icons-material/Add';
-import { Box, IconButton, TextField } from '@mui/material';
 import { fetchWord } from '@client/api/fetchWord';
 import { LexiconListContext } from '@client/contexts/LexiconListContext';
+import AddIcon from '@mui/icons-material/Add';
+import { Box, IconButton, TextField } from '@mui/material';
 import React, { useContext, useState } from 'react';
 
 export const AddWordInput = (): React.JSX.Element => {
@@ -32,7 +32,7 @@ export const AddWordInput = (): React.JSX.Element => {
 	};
 
 	return (
-		<Box display='flex' justifyContent='center' my={2}>
+		<Box display='flex' justifyContent='center' mt={6} mb={3}>
 			<TextField
 				label='Add a word'
 				value={word}

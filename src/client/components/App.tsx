@@ -55,7 +55,6 @@ export const App = (): React.JSX.Element => {
 	}, []);
 
 	useEffect(() => {
-		localStorage.removeItem('lexicon-list');
 		localStorage.setItem('lexicon-list', JSON.stringify(wordsList));
 	}, [wordsList]);
 

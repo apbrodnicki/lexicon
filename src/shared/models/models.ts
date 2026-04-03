@@ -11,6 +11,7 @@ export interface GenericWord {
 
 export interface Word {
 	id: string;
+	word: string;
 	stems: string[];
 	offensive: boolean;
 	speechPart: keyof PartsOfSpeech;

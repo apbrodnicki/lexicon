@@ -1,8 +1,10 @@
+import { capitalizeFirstLetter } from '@shared/helper';
 import type { GenericWord, PartsOfSpeech, Word } from '@shared/models/models';
 
 export const filterGenericWordData = (word: GenericWord): Word => {
 	return {
-		id: word.meta.id,
+		id: `${word.meta.id}:${word.fl}:${Math.random().toString(36).substring(2, 11)}`,
+		word: capitalizeFirstLetter(word.meta.id.replace(/:.*/, '')),
 		stems: word.meta.stems,
 		offensive: word.meta.offensive,
 		speechPart: word.fl as keyof PartsOfSpeech,

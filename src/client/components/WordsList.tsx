@@ -7,20 +7,18 @@ import { capitalizeFirstLetter } from '@shared/helper';
 import type { Word } from '@shared/models/models';
 import React, { useContext, useState } from 'react';
 import { StyledIconButton, StyledListItemButton } from './custom/Styles';
-// TODO:
-// Add option to choose which definition shows up on base list
-// Remove duplicate entries when adding new word
+
 export const WordsList = (): React.JSX.Element => {
 	const { showOffensiveWords } = useContext(ShowOffensiveWordsContext);
 	const { wordsList, setWordsList } = useContext(LexiconListContext);
 
 	const [openId, setOpenId] = useState<string>('');
 
-	const alphabetizedWords = wordsList.sort((a, b) => a.id.toLowerCase().localeCompare(b.id.toLowerCase()));
+	const alphabetizedWords = wordsList.sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
 
 	const removeWord = (event: React.MouseEvent<HTMLButtonElement>, word: Word): void => {
 		event.stopPropagation();
-		setWordsList(wordsList.filter((currentWord) => currentWord.id !== word.id));
+		setWordsList(wordsList.filter(w => w.id !== word.id));
 	};
 
 	return (
@@ -52,7 +50,7 @@ export const WordsList = (): React.JSX.Element => {
 						>
 							<Box display={'flex'} width={'90%'} my={2}>
 								<ListItemText
-									primary={capitalizeFirstLetter(word.id)}
+									primary={word.word}
 									secondary={word.speechPart}
 									slotProps={{
 										primary: {

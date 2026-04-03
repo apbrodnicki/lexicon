@@ -9,7 +9,7 @@ export const Header = (): React.JSX.Element => {
 
 	return (
 		<Box m={2} textAlign={'center'}>
-			<Typography variant='h3'>
+			<Typography variant='h3' color='black'>
 				Lexicon
 			</Typography>
 			<AuthSpeedDial setAuthDialogOpen={setAuthDialogOpen} />

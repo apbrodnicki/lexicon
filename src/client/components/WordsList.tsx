@@ -6,7 +6,7 @@ import { Box, Card, CardContent, CardHeader, Dialog, DialogTitle, IconButton, Li
 import { capitalizeFirstLetter } from '@shared/helper';
 import type { Word } from '@shared/models/models';
 import React, { useContext, useState } from 'react';
-import { StyledListItemButton } from './custom/Styles';
+import { StyledIconButton, StyledListItemButton } from './custom/Styles';
 // TODO:
 // Add option to choose which definition shows up on base list
 // Remove duplicate entries when adding new word
@@ -32,17 +32,45 @@ export const WordsList = (): React.JSX.Element => {
 			display='flex'
 			flex={1}
 		>
-			<List sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 2 }}>
+			<List sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+				m: 2,
+				width: '100%'
+			}}>
 				{alphabetizedWords.map((word: Word, index: number) => (
-					<ListItem key={index} sx={{ width: '95%', filter: showOffensiveWords ? 'none' : word.offensive ? 'blur(3px)' : 'none' }}>
-						<StyledListItemButton onClick={() => { openDialog(word.id); }} sx={{ display: 'flex', flexDirection: 'column' }}>
+					<ListItem
+						key={index}
+						sx={{
+							width: '95%',
+							filter: showOffensiveWords ? 'none' : word.offensive ? 'blur(3px)' : 'none'
+						}}
+					>
+						<StyledListItemButton
+							onClick={() => { openDialog(word.id); }}
+							sx={{
+								display: 'flex',
+								flexDirection: 'column'
+							}}
+						>
 							<Box display={'flex'} width={'90%'}>
 								<ListItemText
-									primary={`${capitalizeFirstLetter(word.id)} (${word.speechPart})`}
+									primary={capitalizeFirstLetter(word.id)}
+									secondary={word.speechPart}
+									slotProps={{
+										primary: {
+											variant: 'h6'
+										}
+									}}
 								/>
-								<IconButton onClick={(event) => { removeWord(event, word); }}>
+								<StyledIconButton
+									color='secondary'
+									size='large'
+									onClick={(event) => { removeWord(event, word); }}
+								>
 									<RemoveIcon />
-								</IconButton>
+								</StyledIconButton>
 							</Box>
 							<Box width={'90%'}>
 								<ListItemText

@@ -6,37 +6,35 @@ import { createTheme } from '@mui/material';
 
 export const theme = createTheme({
 	components: {
+
 		MuiCssBaseline: {
 			styleOverrides: `
-                @font-face {
-                    font-family: 'CourierPrime';
-                    src: url('${CourierPrimeRegular}') format('truetype');
-                    font-weight: 400;
-                    font-style: normal;
-                }
-                @font-face {
-                    font-family: 'CourierPrime';
-                    src: url('${CourierPrimeBold}') format('truetype');
-                    font-weight: 700;
-                    font-style: normal;
-                }
-                @font-face {
-                    font-family: 'CourierPrime';
-                    src: url('${CourierPrimeItalic}') format('truetype');
-                    font-weight: 400;
-                    font-style: italic;
-                }
-                @font-face {
-                    font-family: 'CourierPrime';
-                    src: url('${CourierPrimeBoldItalic}') format('truetype');
-                    font-weight: 700;
-                    font-style: italic;
-                }
+				@font-face {
+					font-family: 'CourierPrime';
+					src: url('${CourierPrimeRegular}') format('truetype');
+					font-weight: 400;
+					font-style: normal;
+				}
+				@font-face {
+					font-family: 'CourierPrime';
+					src: url('${CourierPrimeBold}') format('truetype');
+					font-weight: 700;
+					font-style: normal;
+				}
+				@font-face {
+					font-family: 'CourierPrime';
+					src: url('${CourierPrimeItalic}') format('truetype');
+					font-weight: 400;
+					font-style: italic;
+				}
+				@font-face {
+					font-family: 'CourierPrime';
+					src: url('${CourierPrimeBoldItalic}') format('truetype');
+					font-weight: 700;
+					font-style: italic;
+				}
 			`
 		}
-	},
-	typography: {
-		fontFamily: 'CourierPrime'
 	},
 	palette: {
 		primary: {
@@ -47,6 +45,12 @@ export const theme = createTheme({
 		},
 		error: {
 			main: '#6a2a1b'
+		}
+	},
+	typography: {
+		fontFamily: 'CourierPrime',
+		allVariants: {
+			color: '#6a2a1b'
 		}
 	}
 });

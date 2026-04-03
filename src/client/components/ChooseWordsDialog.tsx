@@ -1,6 +1,6 @@
 import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
-import { Box, Button, Checkbox, Dialog, DialogContent, DialogTitle, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Button, Checkbox, Dialog, DialogContent, DialogTitle, List, ListItem, ListItemText, Typography } from '@mui/material';
 import type { Word } from '@shared/models/models';
 import { useContext, useState } from 'react';
 
@@ -40,13 +40,15 @@ export const ChooseWordsDialog = ({ words, chooseWordsDialogOpen, setChooseWords
 			onClose={() => setChooseWordsDialogOpen(false)}
 			slotProps={{
 				paper: {
-					className: 'note-card'
+					className: 'header-note-card'
 				}
 			}}
 		>
 			<DialogTitle>Your query returned multiple results.</DialogTitle>
-			<DialogTitle>Please select the ones you wish to save to your Lexicon.</DialogTitle>
-			<DialogTitle>Then press `Submit` at the bottom.</DialogTitle>
+			<Box mx={2} mt={2}>
+				<Typography variant='subtitle1'>Please select the ones you wish to save to your Lexicon.</Typography>
+				<Typography variant='subtitle1'>Then press Submit at the bottom.</Typography>
+			</Box>
 			<DialogContent>
 				<Box component={'form'} onSubmit={handleSubmit}>
 					<List>

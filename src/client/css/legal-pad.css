@@ -67,6 +67,26 @@
 
 .MuiDialog-root .note-card {
 	background:
+		repeating-linear-gradient(
+			180deg,
+			#c9d798 0px,
+			#c9d798 2px,
+			transparent 2px,
+			transparent 36px
+		),
+		linear-gradient(
+			#fbee9f,
+			#fbee9f
+		);
+}
+
+.MuiDialog-root .header-note-card {
+	background:
+		linear-gradient( /* header background */
+			180deg,
+			#fbee9f 40px,
+			transparent 40px
+		),
 		repeating-linear-gradient( /* horizontal lines */
 			180deg,
 			#c9d798 0px,
@@ -79,4 +99,3 @@
 			#fbee9f
 		);
 }
-

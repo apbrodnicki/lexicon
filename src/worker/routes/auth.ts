@@ -21,7 +21,7 @@ auth.get('/validate', async (c) => {
 	const existingUser = await c.env['lexicon-db'].prepare(`
 		SELECT *
 		FROM Users
-		Where userId = ?
+		WHERE userId = ?
 	`).bind(payload.userId).first<User>();
 
 	if (existingUser === null) {
@@ -38,7 +38,7 @@ auth.post('/register', async (c) => {
 	const existingUser = await c.env['lexicon-db'].prepare(`
 		SELECT *
 		FROM Users
-		Where username = ?
+		WHERE username = ?
 	`).bind(lowercaseUsername).first<User>();
 
 	if (existingUser !== null) {

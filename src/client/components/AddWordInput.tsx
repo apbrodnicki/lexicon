@@ -1,4 +1,5 @@
 import { fetchWord } from '@client/api/fetchWord';
+import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, IconButton, TextField } from '@mui/material';
@@ -7,6 +8,7 @@ import React, { useContext, useState } from 'react';
 import { ChooseWordsDialog } from './ChooseWordsDialog';
 
 export const AddWordInput = (): React.JSX.Element => {
+	const { wordsList, setWordsList } = useContext(LexiconListContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
 
 	const [word, setWord] = useState<string>('');
@@ -31,6 +33,8 @@ export const AddWordInput = (): React.JSX.Element => {
 				if (words.length > 1) {
 					setWordsFromApi(words);
 					setChooseWordsDialogOpen(true);
+				} else {
+					setWordsList([...wordsList, ...words]);
 				}
 			}
 		} catch (error) {

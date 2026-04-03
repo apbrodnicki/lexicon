@@ -30,25 +30,26 @@ export const WordsList = (): React.JSX.Element => {
 	return (
 		<Box
 			display='flex'
-			justifyContent='center'
 			flex={1}
 		>
 			<List sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 2 }}>
 				{alphabetizedWords.map((word: Word, index: number) => (
-					<ListItem key={index} sx={{ maxWidth: '75%', filter: showOffensiveWords ? 'none' : word.offensive ? 'blur(3px)' : 'none' }}>
-						<StyledListItemButton onClick={() => { openDialog(word.id); }}>
-							<ListItemText
-								primary={`${capitalizeFirstLetter(word.id)} (${word.speechPart})`}
-								sx={{ mx: 5 }}
-							/>
-							<ListItemText
-								key={index}
-								primary={capitalizeFirstLetter(word.definitions[0])}
-								sx={{ mx: 5, textAlign: 'left' }}
-							/>
-							<IconButton onClick={(event) => { removeWord(event, word); }}>
-								<RemoveIcon />
-							</IconButton>
+					<ListItem key={index} sx={{ width: '95%', filter: showOffensiveWords ? 'none' : word.offensive ? 'blur(3px)' : 'none' }}>
+						<StyledListItemButton onClick={() => { openDialog(word.id); }} sx={{ display: 'flex', flexDirection: 'column' }}>
+							<Box display={'flex'} width={'90%'}>
+								<ListItemText
+									primary={`${capitalizeFirstLetter(word.id)} (${word.speechPart})`}
+								/>
+								<IconButton onClick={(event) => { removeWord(event, word); }}>
+									<RemoveIcon />
+								</IconButton>
+							</Box>
+							<Box width={'90%'}>
+								<ListItemText
+									key={index}
+									primary={capitalizeFirstLetter(word.definitions[0])}
+								/>
+							</Box>
 						</StyledListItemButton>
 						<Dialog open={openId === word.id} onClose={() => { setOpenId(''); }}>
 							<Box display='flex' justifyContent='space-between'>

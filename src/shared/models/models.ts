@@ -1,4 +1,3 @@
-
 export interface GenericWord {
 	meta: {
 		id: string;

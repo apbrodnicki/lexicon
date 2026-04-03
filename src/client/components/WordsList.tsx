@@ -1,8 +1,8 @@
 import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { ShowOffensiveWordsContext } from '@client/contexts/ShowOffensiveWordsContext';
-import CloseIcon from '@mui/icons-material/Close';
+import CircleIcon from '@mui/icons-material/Circle';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { Box, Card, CardContent, CardHeader, Dialog, DialogTitle, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { capitalizeFirstLetter } from '@shared/helper';
 import type { Word } from '@shared/models/models';
 import React, { useContext, useState } from 'react';
@@ -17,10 +17,6 @@ export const WordsList = (): React.JSX.Element => {
 	const [openId, setOpenId] = useState<string>('');
 
 	const alphabetizedWords = wordsList.sort((a, b) => a.id.toLowerCase().localeCompare(b.id.toLowerCase()));
-
-	const openDialog = (wordId: string): void => {
-		setOpenId(wordId);
-	};
 
 	const removeWord = (event: React.MouseEvent<HTMLButtonElement>, word: Word): void => {
 		event.stopPropagation();
@@ -43,18 +39,18 @@ export const WordsList = (): React.JSX.Element => {
 					<ListItem
 						key={index}
 						sx={{
-							width: '95%',
-							filter: showOffensiveWords ? 'none' : word.offensive ? 'blur(3px)' : 'none'
+							width: '100%',
+							filter: showOffensiveWords ? 'none' : word.offensive ? 'blur(4px)' : 'none'
 						}}
 					>
 						<StyledListItemButton
-							onClick={() => { openDialog(word.id); }}
+							onClick={() => openId !== word.id ? setOpenId(word.id) : setOpenId('')}
 							sx={{
 								display: 'flex',
 								flexDirection: 'column'
 							}}
 						>
-							<Box display={'flex'} width={'90%'}>
+							<Box display={'flex'} width={'90%'} my={2}>
 								<ListItemText
 									primary={capitalizeFirstLetter(word.id)}
 									secondary={word.speechPart}
@@ -72,58 +68,47 @@ export const WordsList = (): React.JSX.Element => {
 									<RemoveIcon />
 								</StyledIconButton>
 							</Box>
-							<Box width={'90%'}>
-								<ListItemText
-									key={index}
-									primary={capitalizeFirstLetter(word.definitions[0])}
-								/>
-							</Box>
+							{openId === word.id && (
+								<>
+									<Typography variant='subtitle1' textAlign={'left'} width={'80%'}>
+										Definitions
+									</Typography>
+									{word.definitions.map((definition, index) => (
+										<Box
+											key={index}
+											width={'100%'}
+											display={'flex'}
+											alignItems={'center'}
+											my={2}
+										>
+											<CircleIcon sx={{ mr: 8 }} />
+											<ListItemText
+												primary={capitalizeFirstLetter(definition)}
+												sx={{ width: '85%' }}
+											/>
+										</Box>
+									))}
+									<Typography variant='subtitle1' textAlign={'left'} width={'80%'}>
+										Stems
+									</Typography>
+									{word.stems.map((stem, index) => (
+										<Box
+											key={index}
+											width={'100%'}
+											display={'flex'}
+											alignItems={'center'}
+											my={2}
+										>
+											<CircleIcon sx={{ mr: 8 }} />
+											<ListItemText
+												primary={capitalizeFirstLetter(stem)}
+												sx={{ width: '85%' }}
+											/>
+										</Box>
+									))}
+								</>
+							)}
 						</StyledListItemButton>
-						<Dialog open={openId === word.id} onClose={() => { setOpenId(''); }}>
-							<Box display='flex' justifyContent='space-between'>
-								<DialogTitle>{capitalizeFirstLetter(word.id)}</DialogTitle>
-								<IconButton onClick={() => { setOpenId(''); }} sx={{ px: 3, py: 2 }}>
-									<CloseIcon />
-								</IconButton>
-							</Box>
-							<Card>
-								<CardHeader title={word.definitions.length > 1 ? 'Definitions' : 'Definition'} />
-								{word.definitions.map((definition, index) => {
-									if (word.definitions.length > 1) {
-										return (
-											<CardContent key={index} sx={{ display: 'flex' }}>
-												<Box mr={2}>
-													<Typography>
-														{index + 1}
-													</Typography>
-												</Box>
-												<Typography>
-													{definition}
-												</Typography>
-											</CardContent>
-										);
-									} else {
-										return (
-											<CardContent key={index} sx={{ display: 'flex' }}>
-												<Typography>
-													{definition}
-												</Typography>
-											</CardContent>
-										);
-									}
-								})}
-							</Card>
-							<Card>
-								<CardHeader title={word.stems.length > 1 ? 'Stems' : 'Stem'} />
-								{word.stems.map((stem: string, index: number) => (
-									<CardContent key={index}>
-										<Typography>
-											{stem}
-										</Typography>
-									</CardContent>
-								))}
-							</Card>
-						</Dialog>
 					</ListItem>
 				))}
 			</List>

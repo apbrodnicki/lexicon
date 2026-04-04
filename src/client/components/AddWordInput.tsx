@@ -1,4 +1,4 @@
-import { fetchWord } from '@client/api/fetchWord';
+import { fetchWord } from '@client/api/dictionary/fetchWord';
 import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import AddIcon from '@mui/icons-material/Add';
@@ -44,7 +44,6 @@ export const AddWordInput = (): React.JSX.Element => {
 			setSnackbarMessage(message);
 			setSnackbarColor('error');
 		}
-
 	};
 
 	return (

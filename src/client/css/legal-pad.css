@@ -80,22 +80,23 @@
 		);
 }
 
-.MuiDialog-root .header-note-card {
+.MuiDialog-root .choose-words-dialog-note-card {
 	background:
-		linear-gradient( /* header background */
+		linear-gradient(
 			180deg,
 			#fbee9f 40px,
-			transparent 40px
-		),
-		repeating-linear-gradient( /* horizontal lines */
+			#fbee9f 100%
+		);
+}
+
+.MuiDialog-root .choose-words-dialog-note-card .MuiDialogContent-root {
+	background-image:
+		repeating-linear-gradient(
 			180deg,
 			#c9d798 0px,
 			#c9d798 2px,
 			transparent 2px,
 			transparent 36px
-		),
-		linear-gradient( /* background */
-			#fbee9f,
-			#fbee9f
 		);
+	background-attachment: local;
 }

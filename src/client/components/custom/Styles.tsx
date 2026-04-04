@@ -1,6 +1,7 @@
 import { IconButton, ListItemButton, styled } from '@mui/material';
 
 export const StyledListItemButton = styled(ListItemButton)(() => ({
+	borderRadius: '10px',
 	'&:hover': {
 		boxShadow: `
 				0px 3px 3px -2px rgba(0, 0, 0, 0.2),
@@ -18,7 +19,7 @@ export const StyledListItemButton = styled(ListItemButton)(() => ({
 }));
 
 export const StyledIconButton = styled(IconButton)(() => ({
-	borderRadius: 0,
+	borderRadius: '10px',
 	'&:hover': {
 		boxShadow: `
 				0px 3px 3px -2px rgba(0, 0, 0, 0.2),

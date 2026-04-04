@@ -40,7 +40,7 @@ export const ChooseWordsDialog = ({ words, chooseWordsDialogOpen, setChooseWords
 			onClose={() => setChooseWordsDialogOpen(false)}
 			slotProps={{
 				paper: {
-					className: 'header-note-card'
+					className: 'choose-words-dialog-note-card'
 				}
 			}}
 		>

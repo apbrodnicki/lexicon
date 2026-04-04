@@ -11,7 +11,7 @@ interface ChooseWordsDialogProps {
 }
 
 export const ChooseWordsDialog = ({ words, chooseWordsDialogOpen, setChooseWordsDialogOpen }: ChooseWordsDialogProps): React.JSX.Element => {
-	const { wordsList, setWordsList } = useContext(LexiconListContext);
+	const { lexiconList, setLexiconList } = useContext(LexiconListContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
 
 	const [selectedWords, setSelectedWords] = useState<Word[]>([]);
@@ -20,7 +20,7 @@ export const ChooseWordsDialog = ({ words, chooseWordsDialogOpen, setChooseWords
 		event.preventDefault();
 
 		setChooseWordsDialogOpen(false);
-		setWordsList([...wordsList, ...selectedWords]);
+		setLexiconList([...lexiconList, ...selectedWords]);
 		setSnackbarOpen(true);
 		setSnackbarMessage(selectedWords.length + ' words added.');
 		setSnackbarColor('success');

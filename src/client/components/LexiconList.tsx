@@ -8,17 +8,17 @@ import type { Word } from '@shared/models/database';
 import React, { useContext, useState } from 'react';
 import { StyledIconButton, StyledListItemButton } from './custom/Styles';
 
-export const WordsList = (): React.JSX.Element => {
+export const LexiconList = (): React.JSX.Element => {
 	const { showOffensiveWords } = useContext(ShowOffensiveWordsContext);
-	const { wordsList, setWordsList } = useContext(LexiconListContext);
+	const { lexiconList, setLexiconList } = useContext(LexiconListContext);
 
 	const [openId, setOpenId] = useState<string>('');
 
-	const alphabetizedWords = wordsList.sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
+	const alphabetizedWords = lexiconList.sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
 
 	const removeWord = (event: React.MouseEvent<HTMLButtonElement>, word: Word): void => {
 		event.stopPropagation();
-		setWordsList(wordsList.filter(w => w.wordId !== word.wordId));
+		setLexiconList(lexiconList.filter(w => w.wordId !== word.wordId));
 	};
 
 	return (

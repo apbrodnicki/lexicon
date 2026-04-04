@@ -8,7 +8,7 @@ import React, { useContext, useState } from 'react';
 import { ChooseWordsDialog } from './ChooseWordsDialog';
 
 export const AddWordInput = (): React.JSX.Element => {
-	const { wordsList, setWordsList } = useContext(LexiconListContext);
+	const { lexiconList, setLexiconList } = useContext(LexiconListContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
 
 	const [word, setWord] = useState<string>('');
@@ -34,7 +34,7 @@ export const AddWordInput = (): React.JSX.Element => {
 					setWordsFromApi(words);
 					setChooseWordsDialogOpen(true);
 				} else {
-					setWordsList([...wordsList, ...words]);
+					setLexiconList([...lexiconList, ...words]);
 				}
 			}
 		} catch (error) {

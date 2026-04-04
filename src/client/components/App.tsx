@@ -10,10 +10,10 @@ import type { Word } from '@shared/models/database';
 import React, { useEffect, useState } from 'react';
 import { AddWordInput } from './AddWordInput';
 import { CustomSnackbar } from './custom/CustomSnackbar';
+import { LexiconList } from './LexiconList';
 import { RevealSwitch } from './RevealSwitch';
 import { Footer } from './runner/Footer';
 import { Header } from './runner/Header';
-import { WordsList } from './WordsList';
 
 export const App = (): React.JSX.Element => {
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -24,7 +24,7 @@ export const App = (): React.JSX.Element => {
 	const [snackbarMessage, setSnackbarMessage] = useState<string>('');
 	const [snackbarColor, setSnackbarColor] = useState<'success' | 'info' | 'warning' | 'error'>('info');
 
-	const [wordsList, setWordsList] = useState<Word[]>(() => {
+	const [lexiconList, setLexiconList] = useState<Word[]>(() => {
 		const list = localStorage.getItem('lexicon-list');
 
 		return (list !== null) ? JSON.parse(list) : [];
@@ -55,19 +55,19 @@ export const App = (): React.JSX.Element => {
 	}, []);
 
 	useEffect(() => {
-		localStorage.setItem('lexicon-list', JSON.stringify(wordsList));
-	}, [wordsList]);
+		localStorage.setItem('lexicon-list', JSON.stringify(lexiconList));
+	}, [lexiconList]);
 
 	return (
 		<Box id='lexicon' className='page-layout legal-pad'>
 			<AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
 				<ShowOffensiveWordsContext.Provider value={{ showOffensiveWords, setShowOffensiveWords }}>
-					<LexiconListContext.Provider value={{ wordsList, setWordsList }}>
+					<LexiconListContext.Provider value={{ lexiconList, setLexiconList }}>
 						<SnackbarContext.Provider value={{ snackbarOpen, setSnackbarOpen, snackbarMessage, setSnackbarMessage, snackbarColor, setSnackbarColor }}>
 							<Header />
 							<AddWordInput />
 							<RevealSwitch />
-							<WordsList />
+							<LexiconList />
 							<Footer />
 							<CustomSnackbar />
 						</SnackbarContext.Provider>

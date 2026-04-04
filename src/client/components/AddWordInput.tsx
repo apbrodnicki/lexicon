@@ -3,7 +3,7 @@ import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, IconButton, TextField } from '@mui/material';
-import type { Word } from '@shared/models/database';
+import type { Word } from '@shared/models/models';
 import React, { useContext, useState } from 'react';
 import { ChooseWordsDialog } from './ChooseWordsDialog';
 

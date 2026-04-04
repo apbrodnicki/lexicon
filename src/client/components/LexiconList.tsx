@@ -4,7 +4,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { capitalizeFirstLetter } from '@shared/helper';
-import type { Word } from '@shared/models/database';
+import type { Word } from '@shared/models/models';
 import React, { useContext, useState } from 'react';
 import { StyledIconButton, StyledListItemButton } from './custom/Styles';
 

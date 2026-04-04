@@ -21,3 +21,17 @@ export interface PartsOfSpeech {
 	idiom: string;
 	[key: string]: unknown;
 }
+
+export interface User {
+	userId: number;
+	username: string;
+}
+
+export interface Word {
+	wordId: string;
+	word: string;
+	stems: string[];
+	offensive: boolean;
+	speechPart: keyof PartsOfSpeech;
+	definitions: string[];
+}

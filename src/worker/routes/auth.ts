@@ -1,4 +1,4 @@
-import type { User } from '@shared/models/database';
+import type { UserEntity } from '@shared/models/entities';
 import type { AuthRequest } from '@shared/models/requests';
 import type { GenericResponse, LoginResponse } from '@shared/models/responses';
 import { hashPassword, verifyPassword } from '@worker/helper/password';
@@ -22,7 +22,7 @@ auth.get('/validate', async (c) => {
 		SELECT *
 		FROM Users
 		WHERE userId = ?
-	`).bind(payload.userId).first<User>();
+	`).bind(payload.userId).first<UserEntity>();
 
 	if (existingUser === null) {
 		throw new HTTPException(401, { message: 'Invalid credentials.' });
@@ -39,7 +39,7 @@ auth.post('/register', async (c) => {
 		SELECT *
 		FROM Users
 		WHERE username = ?
-	`).bind(lowercaseUsername).first<User>();
+	`).bind(lowercaseUsername).first<UserEntity>();
 
 	if (existingUser !== null) {
 		throw new HTTPException(400, { message: 'This username has already been registered.' });
@@ -63,7 +63,7 @@ auth.post('/login', async (c) => {
 		SELECT *
 		FROM Users
 		WHERE username = ?
-	`).bind(lowercaseUsername).first<User>();
+	`).bind(lowercaseUsername).first<UserEntity>();
 
 	if (existingUser === null) {
 		throw new HTTPException(401, { message: 'Invalid credentials.' });

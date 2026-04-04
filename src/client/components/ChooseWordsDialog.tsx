@@ -1,7 +1,7 @@
 import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import { Box, Button, Checkbox, Dialog, DialogContent, DialogTitle, List, ListItem, ListItemText, Typography } from '@mui/material';
-import type { Word } from '@shared/models/database';
+import type { Word } from '@shared/models/models';
 import { useContext, useState } from 'react';
 
 interface ChooseWordsDialogProps {

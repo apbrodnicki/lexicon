@@ -1,6 +1,5 @@
 import { capitalizeFirstLetter } from '@shared/helper';
-import type { Word } from '@shared/models/database';
-import type { GenericWord, PartsOfSpeech } from '@shared/models/models';
+import type { GenericWord, PartsOfSpeech, Word } from '@shared/models/models';
 
 export const filterGenericWordData = (word: GenericWord): Word => {
 	return {

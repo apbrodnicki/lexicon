@@ -9,15 +9,6 @@ export interface GenericWord {
 	[key: string]: unknown;
 }
 
-export interface Word {
-	id: string;
-	word: string;
-	stems: string[];
-	offensive: boolean;
-	speechPart: keyof PartsOfSpeech;
-	definitions: string[];
-}
-
 export interface PartsOfSpeech {
 	noun: string;
 	pronoun: string;
@@ -29,16 +20,4 @@ export interface PartsOfSpeech {
 	interjection: string;
 	idiom: string;
 	[key: string]: unknown;
-}
-
-export interface User {
-	userId: number;
-	username: string;
-	password: string;
-}
-
-export interface Words {
-	wordId: number;
-	word: string;
-	definition: string;
 }

@@ -4,7 +4,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { capitalizeFirstLetter } from '@shared/helper';
-import type { Word } from '@shared/models/models';
+import type { Word } from '@shared/models/database';
 import React, { useContext, useState } from 'react';
 import { StyledIconButton, StyledListItemButton } from './custom/Styles';
 
@@ -18,7 +18,7 @@ export const WordsList = (): React.JSX.Element => {
 
 	const removeWord = (event: React.MouseEvent<HTMLButtonElement>, word: Word): void => {
 		event.stopPropagation();
-		setWordsList(wordsList.filter(w => w.id !== word.id));
+		setWordsList(wordsList.filter(w => w.wordId !== word.wordId));
 	};
 
 	return (
@@ -42,7 +42,7 @@ export const WordsList = (): React.JSX.Element => {
 						}}
 					>
 						<StyledListItemButton
-							onClick={() => openId !== word.id ? setOpenId(word.id) : setOpenId('')}
+							onClick={() => openId !== word.wordId ? setOpenId(word.wordId) : setOpenId('')}
 							sx={{
 								display: 'flex',
 								flexDirection: 'column'
@@ -66,7 +66,7 @@ export const WordsList = (): React.JSX.Element => {
 									<RemoveIcon />
 								</StyledIconButton>
 							</Box>
-							{openId === word.id && (
+							{openId === word.wordId && (
 								<>
 									<Typography variant='subtitle1' textAlign={'left'} width={'80%'}>
 										Definitions

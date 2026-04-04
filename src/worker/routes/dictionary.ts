@@ -1,4 +1,5 @@
-import type { GenericWord, Word } from '@shared/models/models';
+import type { Word } from '@shared/models/database';
+import type { GenericWord } from '@shared/models/models';
 import { filterGenericWords, isDidYouMeanResponse } from '@worker/helper/filterApiData';
 import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';

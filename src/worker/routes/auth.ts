@@ -1,4 +1,4 @@
-import type { User } from '@shared/models/models';
+import type { User } from '@shared/models/database';
 import type { AuthRequest } from '@shared/models/requests';
 import type { GenericResponse, LoginResponse } from '@shared/models/responses';
 import { hashPassword, verifyPassword } from '@worker/helper/password';

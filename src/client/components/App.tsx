@@ -6,7 +6,7 @@ import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import '@client/css/app.css';
 import '@client/css/legal-pad.css';
 import { Box } from '@mui/material';
-import type { Word } from '@shared/models/models';
+import type { Word } from '@shared/models/database';
 import React, { useEffect, useState } from 'react';
 import { AddWordInput } from './AddWordInput';
 import { CustomSnackbar } from './custom/CustomSnackbar';

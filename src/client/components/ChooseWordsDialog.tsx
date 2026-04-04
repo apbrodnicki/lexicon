@@ -1,7 +1,7 @@
 import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import { Box, Button, Checkbox, Dialog, DialogContent, DialogTitle, List, ListItem, ListItemText, Typography } from '@mui/material';
-import type { Word } from '@shared/models/models';
+import type { Word } from '@shared/models/database';
 import { useContext, useState } from 'react';
 
 interface ChooseWordsDialogProps {
@@ -30,7 +30,7 @@ export const ChooseWordsDialog = ({ words, chooseWordsDialogOpen, setChooseWords
 		if (event.target.checked) {
 			setSelectedWords([...selectedWords, word]);
 		} else {
-			setSelectedWords(selectedWords.filter(w => w.id !== word.id));
+			setSelectedWords(selectedWords.filter(w => w.wordId !== word.wordId));
 		}
 	};
 

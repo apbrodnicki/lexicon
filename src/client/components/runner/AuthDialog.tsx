@@ -2,6 +2,7 @@ import { login } from '@client/api/auth/login';
 import { register } from '@client/api/auth/register';
 import { AuthContext } from '@client/contexts/AuthContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
+import { UserContext } from '@client/contexts/UserContext';
 import { Box, Button, Dialog, DialogContent, DialogTitle, Divider, TextField } from '@mui/material';
 import type { GenericResponse, LoginResponse } from '@shared/models/responses';
 import { useContext, useState } from 'react';
@@ -13,6 +14,7 @@ interface AuthDialogProps {
 
 export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProps): React.JSX.Element => {
 	const { setIsAuthenticated } = useContext(AuthContext);
+	const { setUserId, setUsername } = useContext(UserContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
 
 	const [action, setAction] = useState<'login' | 'register'>('login');
@@ -33,12 +35,14 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 		try {
 			event.preventDefault();
 
-			let response: GenericResponse;
+			let response: LoginResponse | GenericResponse;
 
 			if (action === 'login') {
-				response = await login(usernameValue, passwordValue) as LoginResponse;
+				response = await login(usernameValue, passwordValue);
 
 				setIsAuthenticated(true);
+				setUserId((response as LoginResponse).user.userId);
+				setUsername((response as LoginResponse).user.username);
 			} else {
 				response = await register(usernameValue, passwordValue);
 			}
@@ -48,7 +52,6 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 			setSnackbarOpen(true);
 			setSnackbarMessage(response.message);
 			setSnackbarColor('success');
-
 		} catch (error) {
 			const message = String(error);
 

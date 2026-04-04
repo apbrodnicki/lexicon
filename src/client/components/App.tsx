@@ -3,10 +3,11 @@ import { AuthContext } from '@client/contexts/AuthContext';
 import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { ShowOffensiveWordsContext } from '@client/contexts/ShowOffensiveWordsContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
+import { UserContext } from '@client/contexts/UserContext';
 import '@client/css/app.css';
 import '@client/css/legal-pad.css';
 import { Box } from '@mui/material';
-import type { Word } from '@shared/models/database';
+import type { Word } from '@shared/models/models';
 import React, { useEffect, useState } from 'react';
 import { AddWordInput } from './AddWordInput';
 import { CustomSnackbar } from './custom/CustomSnackbar';
@@ -17,7 +18,8 @@ import { Header } from './runner/Header';
 
 export const App = (): React.JSX.Element => {
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-
+	const [userId, setUserId] = useState<number>(0);
+	const [username, setUsername] = useState<string>('');
 	const [showOffensiveWords, setShowOffensiveWords] = useState<boolean>(false);
 
 	const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
@@ -61,18 +63,20 @@ export const App = (): React.JSX.Element => {
 	return (
 		<Box id='lexicon' className='page-layout legal-pad'>
 			<AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
-				<ShowOffensiveWordsContext.Provider value={{ showOffensiveWords, setShowOffensiveWords }}>
-					<LexiconListContext.Provider value={{ lexiconList, setLexiconList }}>
-						<SnackbarContext.Provider value={{ snackbarOpen, setSnackbarOpen, snackbarMessage, setSnackbarMessage, snackbarColor, setSnackbarColor }}>
-							<Header />
-							<AddWordInput />
-							<RevealSwitch />
-							<LexiconList />
-							<Footer />
-							<CustomSnackbar />
-						</SnackbarContext.Provider>
-					</LexiconListContext.Provider>
-				</ShowOffensiveWordsContext.Provider>
+				<UserContext.Provider value={{ userId, setUserId, username, setUsername }}>
+					<ShowOffensiveWordsContext.Provider value={{ showOffensiveWords, setShowOffensiveWords }}>
+						<LexiconListContext.Provider value={{ lexiconList, setLexiconList }}>
+							<SnackbarContext.Provider value={{ snackbarOpen, setSnackbarOpen, snackbarMessage, setSnackbarMessage, snackbarColor, setSnackbarColor }}>
+								<Header />
+								<AddWordInput />
+								<RevealSwitch />
+								<LexiconList />
+								<Footer />
+								<CustomSnackbar />
+							</SnackbarContext.Provider>
+						</LexiconListContext.Provider>
+					</ShowOffensiveWordsContext.Provider>
+				</UserContext.Provider>
 			</AuthContext.Provider>
 		</Box>
 	);

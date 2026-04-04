@@ -4,7 +4,7 @@ import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 interface AuthSpeedDialProps {
 	setAuthDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,17 +20,6 @@ type Action = SpeedDialActionInterface['name'];
 export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.JSX.Element => {
 	const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
-
-	const [atSmBreakpoint, setAtSmBreakpoint] = useState<boolean>(false);
-
-	const match = window.matchMedia('(min-width: 600px)');
-	match.addEventListener('change', (e) => {
-		if (!e.matches) {
-			return setAtSmBreakpoint(true);
-		}
-
-		return setAtSmBreakpoint(false);
-	});
 
 	const speedDialActions: SpeedDialActionInterface[] = [];
 
@@ -62,7 +51,7 @@ export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.
 		<SpeedDial
 			ariaLabel='Auth SpeedDial'
 			icon={<SpeedDialIcon />}
-			direction={atSmBreakpoint ? 'down' : 'left'}
+			direction={'down'}
 			color='primary.main'
 			sx={{
 				position: 'fixed',
@@ -88,9 +77,9 @@ export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.
 						'& .MuiSpeedDialAction-staticTooltipLabel': {
 							backgroundColor: 'unset',
 							boxShadow: 'unset',
-							top: atSmBreakpoint ? '13px' : '43px',
-							right: atSmBreakpoint ? '36px' : '',
-							color: atSmBreakpoint ? 'secondary.main' : 'primary.main'
+							top: '13px',
+							right: '36px',
+							color: 'secondary.main'
 						},
 						'& .MuiButtonBase-root': {
 							backgroundColor: 'primary.main'

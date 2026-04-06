@@ -2,7 +2,6 @@ import { login } from '@client/api/auth/login';
 import { register } from '@client/api/auth/register';
 import { AuthContext } from '@client/contexts/AuthContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
-import { UserContext } from '@client/contexts/UserContext';
 import { Box, Button, Dialog, DialogContent, DialogTitle, Divider, TextField } from '@mui/material';
 import type { GenericResponse, LoginResponse } from '@shared/models/responses';
 import { useContext, useState } from 'react';
@@ -14,8 +13,7 @@ interface AuthDialogProps {
 };
 
 export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProps): React.JSX.Element => {
-	const { setIsAuthenticated } = useContext(AuthContext);
-	const { setUserId, setUsername } = useContext(UserContext);
+	const { setIsAuthenticated, setUserId, setUsername } = useContext(AuthContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
 
 	const [isLoading, setIsLoading] = useState<boolean>(false);

@@ -6,6 +6,7 @@ import { UserContext } from '@client/contexts/UserContext';
 import { Box, Button, Dialog, DialogContent, DialogTitle, Divider, TextField } from '@mui/material';
 import type { GenericResponse, LoginResponse } from '@shared/models/responses';
 import { useContext, useState } from 'react';
+import { BookLoader } from '../loader/BookLoader';
 
 interface AuthDialogProps {
 	authDialogOpen: boolean;
@@ -17,6 +18,7 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 	const { setUserId, setUsername } = useContext(UserContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
 
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [action, setAction] = useState<'login' | 'register'>('login');
 	const [usernameValue, setUsernameValue] = useState<string>('');
 	const [passwordValue, setPasswordValue] = useState<string>('');
@@ -32,10 +34,14 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 	};
 
 	const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>): Promise<void> => {
+		let message = '';
+
 		try {
 			event.preventDefault();
 
 			let response: LoginResponse | GenericResponse;
+
+			setIsLoading(true);
 
 			if (action === 'login') {
 				response = await login(usernameValue, passwordValue);
@@ -47,17 +53,18 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 				response = await register(usernameValue, passwordValue);
 			}
 
-			handleClose();
+			message = response.message;
 
-			setSnackbarOpen(true);
-			setSnackbarMessage(response.message);
+			handleClose();
 			setSnackbarColor('success');
 		} catch (error) {
-			const message = String(error);
+			message = String(error);
 
+			setSnackbarColor('error');
+		} finally {
+			setIsLoading(false);
 			setSnackbarOpen(true);
 			setSnackbarMessage(message);
-			setSnackbarColor('error');
 		}
 	};
 
@@ -72,75 +79,84 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 			}}
 			sx={{
 				'& .MuiPaper-root': {
-					bgcolor: 'primary.main'
+					bgcolor: 'primary.main',
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					minWidth: '300px',
+					minHeight: '200px'
 				}
 			}}
 		>
-			<Box component={'form'} onSubmit={handleSubmit}>
-				<DialogTitle>Login</DialogTitle>
-				<DialogContent sx={{
-					display: 'flex',
-					flexDirection: 'column'
-				}}>
-					<TextField
-						value={usernameValue}
-						id='username'
-						label='Username'
-						variant='standard'
-						color='secondary'
-						required
-						error={usernameInputTouched && usernameValue.length < 1}
-						onChange={(e) => setUsernameValue(e.target.value)}
-						onFocus={() => setUsernameInputTouched(true)}
-						sx={{
-							m: 1
-						}}
-					/>
-					<TextField
-						value={passwordValue}
-						type='password'
-						id='password'
-						label='Password'
-						variant='standard'
-						color='secondary'
-						required
-						error={passwordInputTouched && passwordValue.length < 1}
-						onChange={(e) => setPasswordValue(e.target.value)}
-						onFocus={() => setPasswordInputTouched(true)}
-						sx={{
-							m: 1
-						}}
-					/>
-					<Button
-						type='submit'
-						variant='outlined'
-						color='secondary'
-						onClick={() => setAction('login')}
-						sx={{
-							m: 1
-						}}
-					>
-						Login
-					</Button>
-				</DialogContent>
-				<Divider>or</Divider>
-				<DialogContent sx={{
-					display: 'flex',
-					flexDirection: 'column'
-				}}>
-					<Button
-						type='submit'
-						variant='outlined'
-						color='secondary'
-						onClick={() => setAction('register')}
-						sx={{
-							m: 1
-						}}
-					>
-						Register
-					</Button>
-				</DialogContent>
-			</Box>
+			{!isLoading ? (
+				<Box component={'form'} onSubmit={handleSubmit}>
+					<DialogTitle>Login</DialogTitle>
+					<DialogContent sx={{
+						display: 'flex',
+						flexDirection: 'column'
+					}}>
+						<TextField
+							value={usernameValue}
+							id='username'
+							label='Username'
+							variant='standard'
+							color='secondary'
+							required
+							error={usernameInputTouched && usernameValue.length < 1}
+							onChange={(e) => setUsernameValue(e.target.value)}
+							onFocus={() => setUsernameInputTouched(true)}
+							sx={{
+								m: 1
+							}}
+						/>
+						<TextField
+							value={passwordValue}
+							type='password'
+							id='password'
+							label='Password'
+							variant='standard'
+							color='secondary'
+							required
+							error={passwordInputTouched && passwordValue.length < 1}
+							onChange={(e) => setPasswordValue(e.target.value)}
+							onFocus={() => setPasswordInputTouched(true)}
+							sx={{
+								m: 1
+							}}
+						/>
+						<Button
+							type='submit'
+							variant='outlined'
+							color='secondary'
+							onClick={() => setAction('login')}
+							sx={{
+								m: 1
+							}}
+						>
+							Login
+						</Button>
+					</DialogContent>
+					<Divider>or</Divider>
+					<DialogContent sx={{
+						display: 'flex',
+						flexDirection: 'column'
+					}}>
+						<Button
+							type='submit'
+							variant='outlined'
+							color='secondary'
+							onClick={() => setAction('register')}
+							sx={{
+								m: 1
+							}}
+						>
+							Register
+						</Button>
+					</DialogContent>
+				</Box>
+			) : (
+				<BookLoader />
+			)}
 		</Dialog>
 	);
 };

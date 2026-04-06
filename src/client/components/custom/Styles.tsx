@@ -1,6 +1,9 @@
 import { IconButton, ListItemButton, styled } from '@mui/material';
 
 export const StyledListItemButton = styled(ListItemButton)(() => ({
+	display: 'flex',
+	flexDirection: 'column',
+	width: '100%',
 	borderRadius: '10px',
 	'&:hover': {
 		boxShadow: `

@@ -37,20 +37,16 @@ export const LexiconList = (): React.JSX.Element => {
 					<ListItem
 						key={index}
 						sx={{
+							display: 'flex',
+							flexDirection: 'column',
 							width: '100%',
 							filter: showOffensiveWords ? 'none' : word.offensive ? 'blur(4px)' : 'none'
 						}}
 					>
-						<StyledListItemButton
-							onClick={() => openId !== word.wordId ? setOpenId(word.wordId) : setOpenId('')}
-							sx={{
-								display: 'flex',
-								flexDirection: 'column'
-							}}
-						>
+						<StyledListItemButton onClick={() => openId !== word.wordId ? setOpenId(word.wordId) : setOpenId('')}>
 							<Box display={'flex'} width={'90%'} my={2}>
 								<ListItemText
-									primary={word.word}
+									primary={capitalizeFirstLetter(word.word)}
 									secondary={word.speechPart}
 									slotProps={{
 										primary: {
@@ -66,47 +62,48 @@ export const LexiconList = (): React.JSX.Element => {
 									<RemoveIcon />
 								</StyledIconButton>
 							</Box>
-							{openId === word.wordId && (
-								<>
-									<Typography variant='subtitle1' textAlign={'left'} width={'80%'}>
-										Definitions
-									</Typography>
-									{word.definitions.map((definition, index) => (
-										<Box
-											key={index}
-											width={'100%'}
-											display={'flex'}
-											alignItems={'center'}
-											my={2}
-										>
-											<CircleIcon sx={{ mr: 8 }} />
-											<ListItemText
-												primary={capitalizeFirstLetter(definition)}
-												sx={{ width: '85%' }}
-											/>
-										</Box>
-									))}
-									<Typography variant='subtitle1' textAlign={'left'} width={'80%'}>
-										Stems
-									</Typography>
-									{word.stems.map((stem, index) => (
-										<Box
-											key={index}
-											width={'100%'}
-											display={'flex'}
-											alignItems={'center'}
-											my={2}
-										>
-											<CircleIcon sx={{ mr: 8 }} />
-											<ListItemText
-												primary={capitalizeFirstLetter(stem)}
-												sx={{ width: '85%' }}
-											/>
-										</Box>
-									))}
-								</>
-							)}
 						</StyledListItemButton>
+						{openId === word.wordId && (
+							<Box width={'100%'}>
+								<Typography variant='subtitle1' ml={'10%'}>
+									Definitions
+								</Typography>
+								{word.definitions.map((definition, index) => (
+									<Box
+										key={index}
+										width={'100%'}
+										display={'flex'}
+										alignItems={'center'}
+										my={2}
+									>
+										<CircleIcon sx={{ mr: 8 }} />
+										<ListItemText
+											primary={capitalizeFirstLetter(definition)}
+											sx={{ width: '85%' }}
+										/>
+									</Box>
+								))}
+								<Typography variant='subtitle1' ml={'10%'}>
+									Stems
+								</Typography>
+								{word.stems.map((stem, index) => (
+									<Box
+										key={index}
+										width={'100%'}
+										display={'flex'}
+										alignItems={'center'}
+										my={2}
+									>
+										<CircleIcon sx={{ mr: 8 }} />
+										<ListItemText
+											primary={capitalizeFirstLetter(stem)}
+											sx={{ width: '85%' }}
+										/>
+									</Box>
+								))}
+							</Box>
+						)}
+
 					</ListItem>
 				))}
 			</List>

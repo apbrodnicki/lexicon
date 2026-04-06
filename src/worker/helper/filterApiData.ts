@@ -1,9 +1,10 @@
 import { capitalizeFirstLetter } from '@shared/helper';
+import type { WordEntity } from '@shared/models/entities';
 import type { GenericWord, PartsOfSpeech, Word } from '@shared/models/models';
 
 export const filterGenericWordData = (word: GenericWord): Word => {
 	return {
-		wordId: `${word.meta.id}:${word.fl}:${Math.random().toString(36).substring(2, 11)}`,
+		wordId: word.meta.uuid,
 		word: capitalizeFirstLetter(word.meta.id.replace(/:.*/, '')),
 		stems: word.meta.stems,
 		offensive: word.meta.offensive,
@@ -26,6 +27,17 @@ export const filterGenericWords = (genericWords: GenericWord[]): Word[] => {
 
 	return words;
 };
+
+export const convertWordsForInsert = (words: Word[]): WordEntity[] => (
+	words.map(({ wordId, word, definitions, stems, speechPart, offensive }) => ({
+		wordId,
+		word,
+		definitions: definitions.join('`'),
+		stems: stems.join('`'),
+		speechPart: speechPart as string,
+		offensive: offensive ? 1 : 0
+	}))
+);
 
 export const isDidYouMeanResponse = (response: GenericWord[] | string[]) => {
 	return response.length > 0 && typeof response[0] === 'string';

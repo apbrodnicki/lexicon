@@ -1,7 +1,7 @@
 import type { GenericWord, Word } from '@shared/models/models';
 import { SaveUserWordRequest } from '@shared/models/requests';
 import type { FetchWordResponse, GenericResponse } from '@shared/models/responses';
-import { filterGenericWords, isDidYouMeanResponse } from '@worker/helper/filterApiData';
+import { convertWordsForInsert, filterGenericWords, isDidYouMeanResponse } from '@worker/helper/filterApiData';
 import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
 
@@ -29,33 +29,37 @@ dictionary.get('/fetchWord', async (c): Promise<Response> => {
 	return c.json<FetchWordResponse>({ message: 'Fetch success!', words: words });
 });
 
-dictionary.post('/saveWord', async (c): Promise<Response> => {
-	const { wordId, word, definitions, stems, speechPart, offensive } = await c.req.json<Word>();
+dictionary.post('/saveWords', async (c): Promise<Response> => {
+	const words = await c.req.json<Word[]>();
+	const wordEntities = convertWordsForInsert(words);
 
-	const definitionsString = definitions.join(',');
-	const stemsString = stems.join(',');
+	const statements = wordEntities.map(word =>
+		c.env['lexicon-db'].prepare(`
+			INSERT INTO Words (wordId, word, definitions, stems, speechPart, offensive)
+			VALUES (?, ?, ?, ?, ?, ?)
+			ON CONFLICT (wordId) DO NOTHING
+		`).bind(word.wordId, word.word, word.definitions, word.stems, word.speechPart, word.offensive)
+	);
 
-	await c.env['lexicon-db'].prepare(`
-		INSERT INTO Words (wordId, word, definitions, stems, speechPart, offensive)
-		VALUES (?, ?, ?, ?, ?, ?)
-	`).bind(wordId, word, definitionsString, stemsString, speechPart, offensive).run();
+	await c.env['lexicon-db'].batch(statements);
 
-	return c.json<GenericResponse>({ message: 'Word saved!' });
+	return c.json<GenericResponse>({ message: 'Words saved!' });
 });
 
-dictionary.post('/saveUserWord', async (c): Promise<Response> => {
-	const { userId, wordId } = await c.req.json<SaveUserWordRequest>();
+dictionary.post('/saveUserWords', async (c): Promise<Response> => {
+	const { userId, wordIds } = await c.req.json<SaveUserWordRequest>();
 
-	if (userId === 0 || wordId === '') {
-		throw new HTTPException(400, { message: 'Unable to save word.' });
-	}
+	const statements = wordIds.map(wordId =>
+		c.env['lexicon-db'].prepare(`
+			INSERT INTO UserWords (userId, wordId)
+			VALUES (?, ?)
+			ON CONFLICT (wordId) DO NOTHING
+		`).bind(userId, wordId)
+	);
 
-	await c.env['lexicon-db'].prepare(`
-		INSERT INTO UserWords (userId, wordId)
-		VALUES (?, ?)
-	`).bind(userId, wordId).run();
+	await c.env['lexicon-db'].batch(statements);
 
-	return c.json<GenericResponse>({ message: 'Word saved to user Lexicon!' });
+	return c.json<GenericResponse>({ message: 'Words saved to user Lexicon!' });
 });
 
 export default dictionary;

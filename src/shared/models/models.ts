@@ -1,6 +1,7 @@
 export interface GenericWord {
 	meta: {
 		id: string;
+		uuid: string;
 		stems: string[];
 		offensive: boolean;
 	};

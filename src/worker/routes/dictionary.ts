@@ -1,4 +1,5 @@
-import type { GenericWord, Word } from '@shared/models/models';
+import type { GenericWord } from '@shared/models/models';
+import type { FetchWordResponse } from '@shared/models/responses';
 import { filterGenericWords, isDidYouMeanResponse } from '@worker/helper/filterApiData';
 import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
@@ -24,7 +25,9 @@ dictionary.get('/fetchWord', async (c): Promise<Response> => {
 		throw new HTTPException(400, { message: `Word not found. Did you mean... ${genericWords.splice(0, 3).join(', ')}?` });
 	}
 
-	return c.json<Word[]>(filterGenericWords(genericWords as GenericWord[]));
+	const words = filterGenericWords(genericWords as GenericWord[]);
+
+	return c.json<FetchWordResponse>({ message: 'Fetch success!', words: words });
 });
 
 export default dictionary;

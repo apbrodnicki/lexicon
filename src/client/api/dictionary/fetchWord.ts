@@ -1,6 +1,6 @@
-import type { Word } from '@shared/models/models';
+import type { FetchWordResponse } from '@shared/models/responses';
 
-export const fetchWord = async (word: string): Promise<Word[]> => {
+export const fetchWord = async (word: string): Promise<FetchWordResponse> => {
 	const response = await fetch(`/api/dictionary/fetchWord?query=${word}`);
 
 	if (!response.ok) {

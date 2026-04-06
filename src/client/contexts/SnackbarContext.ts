@@ -1,7 +1,7 @@
 import type React from 'react';
 import { createContext } from 'react';
 
-interface SnackbarContextProps {
+export interface SnackbarContextProps {
 	snackbarOpen: boolean;
 	setSnackbarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	snackbarMessage: string;

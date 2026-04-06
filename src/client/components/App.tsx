@@ -1,4 +1,3 @@
-import { validate } from '@client/api/auth/validate';
 import { AuthContext } from '@client/contexts/AuthContext';
 import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { LoadingContext } from '@client/contexts/LoadingContext';
@@ -7,6 +6,7 @@ import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import '@client/css/app.css';
 import '@client/css/book-loader.css';
 import '@client/css/legal-pad.css';
+import { handleAuth } from '@client/services/authService';
 import { Box } from '@mui/material';
 import type { Word } from '@shared/models/models';
 import React, { useEffect, useState } from 'react';
@@ -39,23 +39,7 @@ export const App = (): React.JSX.Element => {
 
 	useEffect(() => {
 		const validateUser = async (): Promise<void> => {
-			let message = '';
-
-			try {
-				const response = await validate();
-				message = response.message;
-
-				setIsAuthenticated(true);
-				setSnackbarColor('success');
-			} catch (error) {
-				message = String(error);
-
-				setIsAuthenticated(false);
-				setSnackbarColor('info');
-			} finally {
-				setSnackbarOpen(true);
-				setSnackbarMessage(message);
-			}
+			await handleAuth({ action: 'Validate', setIsAuthenticated, setUserId, setUsername, setIsLoading, setSnackbarOpen, setSnackbarMessage, setSnackbarColor });
 		};
 
 		validateUser();

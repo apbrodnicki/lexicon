@@ -1,10 +1,12 @@
 import { login } from '@client/api/auth/login';
 import { logout } from '@client/api/auth/logout';
 import { register } from '@client/api/auth/register';
+import { validate } from '@client/api/auth/validate';
+import type { SnackbarContextProps } from '@client/contexts/SnackbarContext';
 import type { User } from '@shared/models/models';
 
-interface HandleAuthLogoutProps {
-	action: 'Logout';
+interface HandleAuthNoCredentialProps {
+	action: 'Logout' | 'Validate';
 }
 
 interface HandleAuthCredentialProps {
@@ -23,7 +25,7 @@ interface HandleAuthSharedProps {
 	setSnackbarColor: React.Dispatch<React.SetStateAction<'success' | 'info' | 'warning' | 'error'>>;
 }
 
-type HandleAuthProps = (HandleAuthLogoutProps | HandleAuthCredentialProps) & HandleAuthSharedProps;
+type HandleAuthProps = (HandleAuthNoCredentialProps | HandleAuthCredentialProps) & HandleAuthSharedProps;
 
 export const handleAuth = async ({
 	action,
@@ -40,6 +42,7 @@ export const handleAuth = async ({
 	let message = '';
 	let user: User;
 	let success = false;
+	let snackbarColor = 'success' as SnackbarContextProps['snackbarColor'];
 
 	try {
 		setIsLoading(true);
@@ -53,6 +56,9 @@ export const handleAuth = async ({
 				setUsername(user.username);
 				break;
 			}
+			case 'Register':
+				({ message } = await register(username, password));
+				break;
 			case 'Logout':
 				({ message } = await logout());
 
@@ -60,20 +66,29 @@ export const handleAuth = async ({
 				setUserId(0);
 				setUsername('');
 				break;
-			case 'Register':
-				({ message } = await register(username, password));
+			case 'Validate':
+				try {
+					({ message, user } = await validate());
+
+					setIsAuthenticated(true);
+					setUserId(user.userId);
+					setUsername(user.username);
+				} catch (error) {
+					message = String(error);
+					snackbarColor = 'info';
+				}
 				break;
 		}
 
-		setSnackbarColor('success');
 		success = true;
 	} catch (error) {
 		message = String(error);
-		setSnackbarColor('error');
+		snackbarColor = 'error';
 	} finally {
 		setIsLoading(false);
 		setSnackbarOpen(true);
 		setSnackbarMessage(message);
+		setSnackbarColor(snackbarColor);
 	}
 
 	return success;

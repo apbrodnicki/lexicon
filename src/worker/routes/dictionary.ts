@@ -1,5 +1,5 @@
-import type { GenericWord, Word } from '@shared/models/models';
-import { SaveUserWordRequest } from '@shared/models/requests';
+import type { GenericWord } from '@shared/models/models';
+import { SaveUserWordsRequest } from '@shared/models/requests';
 import type { FetchWordResponse, GenericResponse } from '@shared/models/responses';
 import { convertWordsForInsert, filterGenericWords, isDidYouMeanResponse } from '@worker/helper/filterApiData';
 import { Hono } from 'hono';
@@ -29,11 +29,11 @@ dictionary.get('/fetchWord', async (c): Promise<Response> => {
 	return c.json<FetchWordResponse>({ message: 'Fetch success!', words: words });
 });
 
-dictionary.post('/saveWords', async (c): Promise<Response> => {
-	const words = await c.req.json<Word[]>();
+dictionary.post('/saveUserWords', async (c): Promise<Response> => {
+	const { userId, words } = await c.req.json<SaveUserWordsRequest>();
 	const wordEntities = convertWordsForInsert(words);
 
-	const statements = wordEntities.map(word =>
+	const wordStatements = wordEntities.map(word =>
 		c.env['lexicon-db'].prepare(`
 			INSERT INTO Words (wordId, word, definitions, stems, speechPart, offensive)
 			VALUES (?, ?, ?, ?, ?, ?)
@@ -41,25 +41,18 @@ dictionary.post('/saveWords', async (c): Promise<Response> => {
 		`).bind(word.wordId, word.word, word.definitions, word.stems, word.speechPart, word.offensive)
 	);
 
-	await c.env['lexicon-db'].batch(statements);
-
-	return c.json<GenericResponse>({ message: 'Words saved!' });
-});
-
-dictionary.post('/saveUserWords', async (c): Promise<Response> => {
-	const { userId, wordIds } = await c.req.json<SaveUserWordRequest>();
-
-	const statements = wordIds.map(wordId =>
+	const userWordStatements = wordEntities.map(word =>
 		c.env['lexicon-db'].prepare(`
 			INSERT INTO UserWords (userId, wordId)
 			VALUES (?, ?)
-			ON CONFLICT (wordId, userId) DO NOTHING
-		`).bind(userId, wordId)
+			ON CONFLICT (userId, wordId) DO NOTHING
+		`).bind(userId, word.wordId)
 	);
 
-	await c.env['lexicon-db'].batch(statements);
+	await c.env['lexicon-db'].batch(wordStatements);
+	await c.env['lexicon-db'].batch(userWordStatements);
 
-	return c.json<GenericResponse>({ message: 'Words saved to user Lexicon!' });
+	return c.json<GenericResponse>({ message: 'Words saved to Lexicon!' });
 });
 
 export default dictionary;

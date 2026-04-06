@@ -1,9 +1,11 @@
+import type { Word } from './models';
+
 export interface AuthRequest {
 	username: string;
 	password: string;
 }
 
-export interface SaveUserWordRequest {
+export interface SaveUserWordsRequest {
 	userId: number;
-	wordIds: string[];
+	words: Word[];
 }

@@ -1,6 +1,6 @@
 .book {
 	--color: #6a2a1b;
-	--duration: 6.8s;
+	--duration: 4s;
 	width: 32px;
 	height: 12px;
 	position: relative;
@@ -96,14 +96,6 @@
 .book ul li:nth-child(8)  { animation-name: page-8; }
 .book ul li:nth-child(9)  { animation-name: page-9; }
 .book ul li:nth-child(10) { animation-name: page-10; }
-.book ul li:nth-child(11) { animation-name: page-11; }
-.book ul li:nth-child(12) { animation-name: page-12; }
-.book ul li:nth-child(13) { animation-name: page-13; }
-.book ul li:nth-child(14) { animation-name: page-14; }
-.book ul li:nth-child(15) { animation-name: page-15; }
-.book ul li:nth-child(16) { animation-name: page-16; }
-.book ul li:nth-child(17) { animation-name: page-17; }
-.book ul li:nth-child(18) { animation-name: page-18; }
 
 /* Page keyframes — each staggered by i*1.86 (start) and i*1.74 (end) */
 @keyframes page-0  { 4%   { transform: rotateZ(0deg)   translateX(-18px); } 13%,  54% { transform: rotateZ(180deg) translateX(-18px); } 63%  { transform: rotateZ(0deg)   translateX(-18px); } }
@@ -117,14 +109,6 @@
 @keyframes page-8  { 18.88% { transform: rotateZ(0deg)   translateX(-18px); } 26.92%, 68.88% { transform: rotateZ(180deg) translateX(-18px); } 76.92% { transform: rotateZ(0deg) translateX(-18px); } }
 @keyframes page-9  { 20.74% { transform: rotateZ(0deg)   translateX(-18px); } 28.66%, 70.74% { transform: rotateZ(180deg) translateX(-18px); } 78.66% { transform: rotateZ(0deg) translateX(-18px); } }
 @keyframes page-10 { 22.6%  { transform: rotateZ(0deg)   translateX(-18px); } 30.4%,  72.6%  { transform: rotateZ(180deg) translateX(-18px); } 80.4%  { transform: rotateZ(0deg) translateX(-18px); } }
-@keyframes page-11 { 24.46% { transform: rotateZ(0deg)   translateX(-18px); } 32.14%, 74.46% { transform: rotateZ(180deg) translateX(-18px); } 82.14% { transform: rotateZ(0deg) translateX(-18px); } }
-@keyframes page-12 { 26.32% { transform: rotateZ(0deg)   translateX(-18px); } 33.88%, 76.32% { transform: rotateZ(180deg) translateX(-18px); } 83.88% { transform: rotateZ(0deg) translateX(-18px); } }
-@keyframes page-13 { 28.18% { transform: rotateZ(0deg)   translateX(-18px); } 35.62%, 78.18% { transform: rotateZ(180deg) translateX(-18px); } 85.62% { transform: rotateZ(0deg) translateX(-18px); } }
-@keyframes page-14 { 30.04% { transform: rotateZ(0deg)   translateX(-18px); } 37.36%, 80.04% { transform: rotateZ(180deg) translateX(-18px); } 87.36% { transform: rotateZ(0deg) translateX(-18px); } }
-@keyframes page-15 { 31.9%  { transform: rotateZ(0deg)   translateX(-18px); } 39.1%,  81.9%  { transform: rotateZ(180deg) translateX(-18px); } 89.1%  { transform: rotateZ(0deg) translateX(-18px); } }
-@keyframes page-16 { 33.76% { transform: rotateZ(0deg)   translateX(-18px); } 40.84%, 83.76% { transform: rotateZ(180deg) translateX(-18px); } 90.84% { transform: rotateZ(0deg) translateX(-18px); } }
-@keyframes page-17 { 35.62% { transform: rotateZ(0deg)   translateX(-18px); } 42.58%, 85.62% { transform: rotateZ(180deg) translateX(-18px); } 92.58% { transform: rotateZ(0deg) translateX(-18px); } }
-@keyframes page-18 { 37.48% { transform: rotateZ(0deg)   translateX(-18px); } 44.32%, 87.48% { transform: rotateZ(180deg) translateX(-18px); } 94.32% { transform: rotateZ(0deg) translateX(-18px); } }
 
 @keyframes left {
 	4%		  { transform: rotateZ(90deg); }

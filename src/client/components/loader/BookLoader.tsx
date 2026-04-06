@@ -16,14 +16,6 @@ export const BookLoader = (): React.JSX.Element => (
 			<li></li>
 			<li></li>
 			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
 		</ul>
 	</div>
 );

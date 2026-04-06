@@ -26,9 +26,12 @@ export const AddWordInput = (): React.JSX.Element => {
 	};
 
 	const handleClick = async (): Promise<void> => {
-		try {
-			if (word.length > 0) {
-				const words = await fetchWord(word);
+		if (word.length > 0) {
+			let words: Word[] = [];
+			let message = '';
+
+			try {
+				({ words, message } = await fetchWord(word));
 
 				if (words.length > 1) {
 					setWordsFromApi(words);
@@ -36,13 +39,16 @@ export const AddWordInput = (): React.JSX.Element => {
 				} else {
 					setLexiconList([...lexiconList, ...words]);
 				}
-			}
-		} catch (error) {
-			const message = String(error);
 
-			setSnackbarOpen(true);
-			setSnackbarMessage(message);
-			setSnackbarColor('error');
+				setSnackbarColor('success');
+			} catch (error) {
+				message = String(error);
+
+				setSnackbarColor('error');
+			} finally {
+				setSnackbarOpen(true);
+				setSnackbarMessage(message);
+			}
 		}
 	};
 

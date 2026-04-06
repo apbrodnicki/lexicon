@@ -44,9 +44,7 @@ export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.
 			try {
 				setIsLoading(true);
 
-				const response = await logout();
-
-				message = response.message;
+				({ message } = await logout());
 
 				setIsAuthenticated(false);
 				setSnackbarColor('success');

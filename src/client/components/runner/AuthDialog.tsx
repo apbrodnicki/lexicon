@@ -1,9 +1,7 @@
-import { login } from '@client/api/auth/login';
-import { register } from '@client/api/auth/register';
 import { AuthContext } from '@client/contexts/AuthContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
+import { handleAuth } from '@client/services/authService';
 import { Box, Button, Dialog, DialogContent, DialogTitle, Divider, TextField } from '@mui/material';
-import type { GenericResponse, LoginResponse } from '@shared/models/responses';
 import { useContext, useState } from 'react';
 import { BookLoader } from '../loader/BookLoader';
 
@@ -17,7 +15,7 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
 
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [action, setAction] = useState<'login' | 'register'>('login');
+	const [action, setAction] = useState<'Login' | 'Register'>('Login');
 	const [usernameValue, setUsernameValue] = useState<string>('');
 	const [passwordValue, setPasswordValue] = useState<string>('');
 	const [usernameInputTouched, setUsernameInputTouched] = useState<boolean>(false);
@@ -32,37 +30,11 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 	};
 
 	const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>): Promise<void> => {
-		let message = '';
+		event.preventDefault();
+		const success = await handleAuth({ action, username: usernameValue, password: passwordValue, setIsAuthenticated, setUserId, setUsername, setIsLoading, setSnackbarOpen, setSnackbarMessage, setSnackbarColor });
 
-		try {
-			event.preventDefault();
-
-			let response: LoginResponse | GenericResponse;
-
-			setIsLoading(true);
-
-			if (action === 'login') {
-				response = await login(usernameValue, passwordValue);
-
-				setIsAuthenticated(true);
-				setUserId((response as LoginResponse).user.userId);
-				setUsername((response as LoginResponse).user.username);
-			} else {
-				response = await register(usernameValue, passwordValue);
-			}
-
-			message = response.message;
-
+		if (success) {
 			handleClose();
-			setSnackbarColor('success');
-		} catch (error) {
-			message = String(error);
-
-			setSnackbarColor('error');
-		} finally {
-			setIsLoading(false);
-			setSnackbarOpen(true);
-			setSnackbarMessage(message);
 		}
 	};
 
@@ -126,7 +98,7 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 							type='submit'
 							variant='outlined'
 							color='secondary'
-							onClick={() => setAction('login')}
+							onClick={() => setAction('Login')}
 							sx={{
 								m: 1
 							}}
@@ -143,7 +115,7 @@ export const AuthDialog = ({ authDialogOpen, setAuthDialogOpen }: AuthDialogProp
 							type='submit'
 							variant='outlined'
 							color='secondary'
-							onClick={() => setAction('register')}
+							onClick={() => setAction('Register')}
 							sx={{
 								m: 1
 							}}

@@ -1,7 +1,7 @@
-import { logout } from '@client/api/auth/logout';
 import { AuthContext } from '@client/contexts/AuthContext';
 import { LoadingContext } from '@client/contexts/LoadingContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
+import { handleAuth } from '@client/services/authService';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
@@ -20,7 +20,7 @@ type Action = SpeedDialActionInterface['name'];
 
 export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.JSX.Element => {
 	const { setIsLoading } = useContext(LoadingContext);
-	const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+	const { isAuthenticated, setIsAuthenticated, setUserId, setUsername } = useContext(AuthContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
 
 	const speedDialActions: SpeedDialActionInterface[] = [];
@@ -35,28 +35,7 @@ export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.
 		if (action === 'Login') {
 			setAuthDialogOpen(true);
 		} else if (action === 'Logout') {
-			if (!isAuthenticated) {
-				return;
-			}
-
-			let message = '';
-
-			try {
-				setIsLoading(true);
-
-				({ message } = await logout());
-
-				setIsAuthenticated(false);
-				setSnackbarColor('success');
-			} catch (error) {
-				message = String(error);
-
-				setSnackbarColor('error');
-			} finally {
-				setIsLoading(false);
-				setSnackbarOpen(true);
-				setSnackbarMessage(message);
-			}
+			await handleAuth({ action, setIsAuthenticated, setUserId, setUsername, setIsLoading, setSnackbarOpen, setSnackbarMessage, setSnackbarColor });
 		}
 	};
 

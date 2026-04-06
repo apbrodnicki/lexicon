@@ -5,5 +5,5 @@ export interface AuthRequest {
 
 export interface SaveUserWordRequest {
 	userId: number;
-	wordId: string;
+	wordIds: string[];
 }

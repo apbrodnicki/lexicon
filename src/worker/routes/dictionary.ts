@@ -53,7 +53,7 @@ dictionary.post('/saveUserWords', async (c): Promise<Response> => {
 		c.env['lexicon-db'].prepare(`
 			INSERT INTO UserWords (userId, wordId)
 			VALUES (?, ?)
-			ON CONFLICT (wordId) DO NOTHING
+			ON CONFLICT (wordId, userId) DO NOTHING
 		`).bind(userId, wordId)
 	);
 

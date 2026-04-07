@@ -1,6 +1,6 @@
 import type { WordEntity } from '@shared/models/entities';
 import type { GenericWord } from '@shared/models/models';
-import { SaveUserWordsRequest } from '@shared/models/requests';
+import { SaveUserWordsRequest, type RemoveUserWordRequest } from '@shared/models/requests';
 import { type FetchWordResponse, type GenericResponse } from '@shared/models/responses';
 import type { UserWordIdResult } from '@shared/models/results';
 import { convertWordsForDatabase, convertWordsFromDatabase, filterGenericWords, isDidYouMeanResponse } from '@worker/helper/filterApiData';
@@ -76,6 +76,17 @@ dictionary.get('/getUserWords', async (c): Promise<Response> => {
 	`).bind(...wordIds).all<WordEntity>();
 
 	return c.json<FetchWordResponse>({ message: 'User words returned successfully!', words: convertWordsFromDatabase(dbWords) });
+});
+
+dictionary.post('/removeUserWord', async (c): Promise<Response> => {
+	const { userId, wordId } = await c.req.json<RemoveUserWordRequest>();
+
+	await c.env['lexicon-db'].prepare(`
+		DELETE FROM UserWords
+		WHERE userId = ? AND wordId = ?
+	`).bind(userId, wordId).run();
+
+	return c.json<GenericResponse>({ message: 'Word removed from Lexicon.' });
 });
 
 export default dictionary;

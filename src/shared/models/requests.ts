@@ -13,3 +13,8 @@ export interface SaveUserWordsRequest {
 export interface GetUserWordsRequest {
 	userId: number;
 }
+
+export interface RemoveUserWordRequest {
+	userId: number;
+	wordId: string;
+}

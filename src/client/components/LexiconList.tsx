@@ -1,5 +1,9 @@
+import { AuthContext } from '@client/contexts/AuthContext';
 import { LexiconListContext } from '@client/contexts/LexiconListContext';
+import { LoadingContext } from '@client/contexts/LoadingContext';
 import { ShowOffensiveWordsContext } from '@client/contexts/ShowOffensiveWordsContext';
+import { SnackbarContext } from '@client/contexts/SnackbarContext';
+import { handleRemoveUserWord } from '@client/services/dictionary/handleRemoveUserWord';
 import CircleIcon from '@mui/icons-material/Circle';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
@@ -11,14 +15,17 @@ import { StyledIconButton, StyledListItemButton } from './custom/Styles';
 export const LexiconList = (): React.JSX.Element => {
 	const { showOffensiveWords } = useContext(ShowOffensiveWordsContext);
 	const { lexiconList, setLexiconList } = useContext(LexiconListContext);
+	const { userId } = useContext(AuthContext);
+	const { setIsLoading } = useContext(LoadingContext);
+	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
 
 	const [openId, setOpenId] = useState<string>('');
 
 	const alphabetizedWords = lexiconList.sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
 
-	const removeWord = (event: React.MouseEvent<HTMLButtonElement>, word: Word): void => {
+	const removeWord = async (event: React.MouseEvent<HTMLButtonElement>, word: Word): Promise<void> => {
 		event.stopPropagation();
-		setLexiconList(lexiconList.filter(w => w.wordId !== word.wordId));
+		await handleRemoveUserWord({ userId, wordId: word.wordId, lexiconList, setLexiconList, setIsLoading, setSnackbarOpen, setSnackbarMessage, setSnackbarColor });
 	};
 
 	return (

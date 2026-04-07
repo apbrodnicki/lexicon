@@ -9,3 +9,7 @@ export interface SaveUserWordsRequest {
 	userId: number;
 	words: Word[];
 }
+
+export interface GetUserWordsRequest {
+	userId: number;
+}

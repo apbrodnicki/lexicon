@@ -1,7 +1,9 @@
+import type { WordEntity } from '@shared/models/entities';
 import type { GenericWord } from '@shared/models/models';
 import { SaveUserWordsRequest } from '@shared/models/requests';
-import type { FetchWordResponse, GenericResponse } from '@shared/models/responses';
-import { convertWordsForInsert, filterGenericWords, isDidYouMeanResponse } from '@worker/helper/filterApiData';
+import { type FetchWordResponse, type GenericResponse } from '@shared/models/responses';
+import type { UserWordIdResult } from '@shared/models/results';
+import { convertWordsForDatabase, convertWordsFromDatabase, filterGenericWords, isDidYouMeanResponse } from '@worker/helper/filterApiData';
 import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
 
@@ -31,7 +33,7 @@ dictionary.get('/fetchWord', async (c): Promise<Response> => {
 
 dictionary.post('/saveUserWords', async (c): Promise<Response> => {
 	const { userId, words } = await c.req.json<SaveUserWordsRequest>();
-	const wordEntities = convertWordsForInsert(words);
+	const wordEntities = convertWordsForDatabase(words);
 
 	const wordStatements = wordEntities.map(word =>
 		c.env['lexicon-db'].prepare(`
@@ -53,6 +55,27 @@ dictionary.post('/saveUserWords', async (c): Promise<Response> => {
 	await c.env['lexicon-db'].batch(userWordStatements);
 
 	return c.json<GenericResponse>({ message: 'Words saved to Lexicon!' });
+});
+
+dictionary.get('/getUserWords', async (c): Promise<Response> => {
+	const userId = c.req.query('userId');
+
+	const { results } = await c.env['lexicon-db'].prepare(`
+		SELECT wordId
+		FROM UserWords
+		WHERE userId = ?
+	`).bind(userId).all<UserWordIdResult>();
+
+	const wordIds = results.map(r => r.wordId);
+	const questionMarks = wordIds.map(() => '?').join(', ');
+
+	const { results: dbWords } = await c.env['lexicon-db'].prepare(`
+		SELECT *
+		FROM Words
+		Where wordId IN (${questionMarks})
+	`).bind(...wordIds).all<WordEntity>();
+
+	return c.json<FetchWordResponse>({ message: 'User words returned successfully!', words: convertWordsFromDatabase(dbWords) });
 });
 
 export default dictionary;

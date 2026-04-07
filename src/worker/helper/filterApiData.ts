@@ -27,7 +27,7 @@ export const filterGenericWords = (genericWords: GenericWord[]): Word[] => {
 	return words;
 };
 
-export const convertWordsForInsert = (words: Word[]): WordEntity[] => (
+export const convertWordsForDatabase = (words: Word[]): WordEntity[] => (
 	words.map(({ wordId, word, definitions, stems, speechPart, offensive }) => ({
 		wordId,
 		word,
@@ -35,6 +35,17 @@ export const convertWordsForInsert = (words: Word[]): WordEntity[] => (
 		stems: stems.join('`'),
 		speechPart: speechPart as string,
 		offensive: offensive ? 1 : 0
+	}))
+);
+
+export const convertWordsFromDatabase = (words: WordEntity[]): Word[] => (
+	words.map(({ wordId, word, definitions, stems, speechPart, offensive }) => ({
+		wordId,
+		word,
+		definitions: definitions.split('`'),
+		stems: stems.split('`'),
+		speechPart: speechPart as keyof PartsOfSpeech,
+		offensive: offensive ? true : false
 	}))
 );
 

@@ -1,5 +1,7 @@
-import { LexiconListContext } from '@client/contexts/LexiconListContext';
+import { AuthContext } from '@client/contexts/AuthContext';
+import { LoadingContext } from '@client/contexts/LoadingContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
+import { handleSaveUserWords } from '@client/services/dictionary/handleSaveUserWords';
 import { Box, Button, Checkbox, Dialog, DialogContent, DialogTitle, List, ListItem, ListItemText, Typography } from '@mui/material';
 import type { Word } from '@shared/models/models';
 import { useContext, useState } from 'react';
@@ -11,19 +13,17 @@ interface ChooseWordsDialogProps {
 }
 
 export const ChooseWordsDialog = ({ words, chooseWordsDialogOpen, setChooseWordsDialogOpen }: ChooseWordsDialogProps): React.JSX.Element => {
-	const { lexiconList, setLexiconList } = useContext(LexiconListContext);
+	const { userId } = useContext(AuthContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
+	const { setIsLoading } = useContext(LoadingContext);
 
 	const [selectedWords, setSelectedWords] = useState<Word[]>([]);
 
-	const handleSubmit = (event: React.SyntheticEvent): void => {
+	const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
 		event.preventDefault();
 
+		await handleSaveUserWords({ userId, words: selectedWords, setIsLoading, setSnackbarOpen, setSnackbarMessage, setSnackbarColor });
 		setChooseWordsDialogOpen(false);
-		setLexiconList([...lexiconList, ...selectedWords]);
-		setSnackbarOpen(true);
-		setSnackbarMessage(selectedWords.length + ' words added.');
-		setSnackbarColor('success');
 	};
 
 	const handleChecked = (event: React.ChangeEvent<HTMLInputElement, Element>, word: Word): void => {

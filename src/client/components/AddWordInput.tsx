@@ -1,6 +1,8 @@
-import { fetchWord } from '@client/api/dictionary/fetchWord';
-import { LexiconListContext } from '@client/contexts/LexiconListContext';
+import { AuthContext } from '@client/contexts/AuthContext';
+import { LoadingContext } from '@client/contexts/LoadingContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
+import { handleFetchWord } from '@client/services/dictionary/handleFetchWord';
+import { handleSaveUserWords } from '@client/services/dictionary/handleSaveUserWords';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, IconButton, TextField } from '@mui/material';
 import type { Word } from '@shared/models/models';
@@ -8,8 +10,9 @@ import React, { useContext, useState } from 'react';
 import { ChooseWordsDialog } from './ChooseWordsDialog';
 
 export const AddWordInput = (): React.JSX.Element => {
-	const { lexiconList, setLexiconList } = useContext(LexiconListContext);
+	const { userId } = useContext(AuthContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
+	const { setIsLoading } = useContext(LoadingContext);
 
 	const [word, setWord] = useState<string>('');
 	const [wordsFromApi, setWordsFromApi] = useState<Word[]>([]);
@@ -27,27 +30,13 @@ export const AddWordInput = (): React.JSX.Element => {
 
 	const handleClick = async (): Promise<void> => {
 		if (word.length > 0) {
-			let words: Word[] = [];
-			let message = '';
+			const words = await handleFetchWord({ word, setSnackbarOpen, setSnackbarMessage, setSnackbarColor });
 
-			try {
-				({ words, message } = await fetchWord(word));
-
-				if (words.length > 1) {
-					setWordsFromApi(words);
-					setChooseWordsDialogOpen(true);
-				} else {
-					setLexiconList([...lexiconList, ...words]);
-				}
-
-				setSnackbarColor('success');
-			} catch (error) {
-				message = String(error);
-
-				setSnackbarColor('error');
-			} finally {
-				setSnackbarOpen(true);
-				setSnackbarMessage(message);
+			if (words.length > 1) {
+				setWordsFromApi(words);
+				setChooseWordsDialogOpen(true);
+			} else {
+				await handleSaveUserWords({ userId, words, setIsLoading, setSnackbarOpen, setSnackbarMessage, setSnackbarColor });
 			}
 		}
 	};

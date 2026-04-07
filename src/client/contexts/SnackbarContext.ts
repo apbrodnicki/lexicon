@@ -1,13 +1,10 @@
-import type React from 'react';
+import type { SnackbarSetProps } from '@shared/models/models';
 import { createContext } from 'react';
 
-export interface SnackbarContextProps {
+export interface SnackbarContextProps extends SnackbarSetProps {
 	snackbarOpen: boolean;
-	setSnackbarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	snackbarMessage: string;
-	setSnackbarMessage: React.Dispatch<React.SetStateAction<string>>;
 	snackbarColor: 'success' | 'info' | 'warning' | 'error';
-	setSnackbarColor: React.Dispatch<React.SetStateAction<'success' | 'info' | 'warning' | 'error'>>;
 }
 
 export const SnackbarContext = createContext<SnackbarContextProps>({

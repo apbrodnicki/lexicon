@@ -3,7 +3,7 @@ import { logout } from '@client/api/auth/logout';
 import { register } from '@client/api/auth/register';
 import { validate } from '@client/api/auth/validate';
 import type { SnackbarContextProps } from '@client/contexts/SnackbarContext';
-import type { User } from '@shared/models/models';
+import type { SnackbarSetProps, User } from '@shared/models/models';
 
 interface HandleAuthNoCredentialProps {
 	action: 'Logout' | 'Validate';
@@ -15,14 +15,11 @@ interface HandleAuthCredentialProps {
 	password: string;
 }
 
-interface HandleAuthSharedProps {
+interface HandleAuthSharedProps extends SnackbarSetProps {
 	setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 	setUserId: React.Dispatch<React.SetStateAction<number>>;
 	setUsername: React.Dispatch<React.SetStateAction<string>>;
 	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-	setSnackbarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	setSnackbarMessage: React.Dispatch<React.SetStateAction<string>>;
-	setSnackbarColor: React.Dispatch<React.SetStateAction<'success' | 'info' | 'warning' | 'error'>>;
 }
 
 type HandleAuthProps = (HandleAuthNoCredentialProps | HandleAuthCredentialProps) & HandleAuthSharedProps;

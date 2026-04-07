@@ -1,6 +1,6 @@
 import { AuthContext } from '@client/contexts/AuthContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
-import { handleAuth } from '@client/services/authService';
+import { handleAuth } from '@client/services/auth/authService';
 import { Box, Button, Dialog, DialogContent, DialogTitle, Divider, TextField } from '@mui/material';
 import { useContext, useState } from 'react';
 import { BookLoader } from '../loader/BookLoader';

@@ -6,7 +6,7 @@ import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import '@client/css/app.css';
 import '@client/css/book-loader.css';
 import '@client/css/legal-pad.css';
-import { handleAuth } from '@client/services/authService';
+import { handleAuth } from '@client/services/auth/authService';
 import { Box } from '@mui/material';
 import type { Word } from '@shared/models/models';
 import React, { useEffect, useState } from 'react';

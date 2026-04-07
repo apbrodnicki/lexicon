@@ -1,7 +1,7 @@
 import { AuthContext } from '@client/contexts/AuthContext';
 import { LoadingContext } from '@client/contexts/LoadingContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
-import { handleAuth } from '@client/services/authService';
+import { handleAuth } from '@client/services/auth/authService';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';

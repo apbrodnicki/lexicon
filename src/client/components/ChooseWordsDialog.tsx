@@ -1,4 +1,5 @@
 import { AuthContext } from '@client/contexts/AuthContext';
+import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { LoadingContext } from '@client/contexts/LoadingContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import { handleSaveUserWords } from '@client/services/dictionary/handleSaveUserWords';
@@ -16,13 +17,14 @@ export const ChooseWordsDialog = ({ words, chooseWordsDialogOpen, setChooseWords
 	const { userId } = useContext(AuthContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
 	const { setIsLoading } = useContext(LoadingContext);
+	const { lexiconList, setLexiconList } = useContext(LexiconListContext);
 
 	const [selectedWords, setSelectedWords] = useState<Word[]>([]);
 
 	const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
 		event.preventDefault();
 
-		await handleSaveUserWords({ userId, words: selectedWords, setIsLoading, setSnackbarOpen, setSnackbarMessage, setSnackbarColor });
+		await handleSaveUserWords({ userId, words: selectedWords, lexiconList, setLexiconList, setIsLoading, setSnackbarOpen, setSnackbarMessage, setSnackbarColor });
 		setChooseWordsDialogOpen(false);
 	};
 

@@ -5,12 +5,16 @@ import type { SnackbarSetProps, Word } from '@shared/models/models';
 interface HandleSaveUserWordsProps extends SnackbarSetProps {
 	userId: number;
 	words: Word[];
+	lexiconList: Word[];
+	setLexiconList: React.Dispatch<React.SetStateAction<Word[]>>;
 	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const handleSaveUserWords = async ({
 	userId,
 	words,
+	lexiconList,
+	setLexiconList,
 	setIsLoading,
 	setSnackbarOpen,
 	setSnackbarMessage,
@@ -23,6 +27,7 @@ export const handleSaveUserWords = async ({
 		setIsLoading(true);
 
 		({ message } = await saveUserWords({ userId, words }));
+		setLexiconList([...lexiconList, ...words]);
 	} catch (error) {
 		message = String(error);
 		snackbarColor = 'error';

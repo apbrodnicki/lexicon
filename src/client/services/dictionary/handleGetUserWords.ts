@@ -1,6 +1,6 @@
 import { getUserWords } from '@client/api/dictionary/getUserWords';
-import type { SnackbarContextProps } from '@client/contexts/SnackbarContext';
-import type { SnackbarSetProps, Word } from '@shared/models/models';
+import type { SnackbarContextProps, SnackbarSetProps } from '@client/contexts/SnackbarContext';
+import type { Word } from '@shared/models/models';
 
 interface HandleGetUserWordsProps extends SnackbarSetProps {
 	userId: number;

@@ -2,8 +2,8 @@ import { login } from '@client/api/auth/login';
 import { logout } from '@client/api/auth/logout';
 import { register } from '@client/api/auth/register';
 import { validate } from '@client/api/auth/validate';
-import type { SnackbarContextProps } from '@client/contexts/SnackbarContext';
-import type { SnackbarSetProps, User, Word } from '@shared/models/models';
+import type { SnackbarContextProps, SnackbarSetProps } from '@client/contexts/SnackbarContext';
+import type { User, Word } from '@shared/models/models';
 
 interface HandleAuthValidateProps {
 	action: 'Validate';

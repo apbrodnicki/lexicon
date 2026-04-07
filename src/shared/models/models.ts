@@ -36,9 +36,3 @@ export interface Word {
 	speechPart: keyof PartsOfSpeech;
 	definitions: string[];
 }
-
-export interface SnackbarSetProps {
-	setSnackbarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	setSnackbarMessage: React.Dispatch<React.SetStateAction<string>>;
-	setSnackbarColor: React.Dispatch<React.SetStateAction<'success' | 'info' | 'warning' | 'error'>>;
-}

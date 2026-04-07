@@ -1,6 +1,6 @@
 import { removeUserWord } from '@client/api/dictionary/removeUserWord';
-import type { SnackbarContextProps } from '@client/contexts/SnackbarContext';
-import type { SnackbarSetProps, Word } from '@shared/models/models';
+import type { SnackbarContextProps, SnackbarSetProps } from '@client/contexts/SnackbarContext';
+import type { Word } from '@shared/models/models';
 
 interface HandleRemoveUserWordProps extends SnackbarSetProps {
 	userId: number;

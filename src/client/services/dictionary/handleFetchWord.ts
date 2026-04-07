@@ -1,5 +1,6 @@
 import { fetchWord } from '@client/api/dictionary/fetchWord';
-import type { SnackbarSetProps, Word } from '@shared/models/models';
+import type { SnackbarSetProps } from '@client/contexts/SnackbarContext';
+import type { Word } from '@shared/models/models';
 
 interface HandleFetchWordProps extends SnackbarSetProps {
 	word: string;

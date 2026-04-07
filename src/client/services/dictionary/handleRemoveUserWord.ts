@@ -7,7 +7,6 @@ interface HandleRemoveUserWordProps extends SnackbarSetProps {
 	wordId: string;
 	lexiconList: Word[];
 	setLexiconList: React.Dispatch<React.SetStateAction<Word[]>>;
-	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const handleRemoveUserWord = async ({
@@ -15,7 +14,6 @@ export const handleRemoveUserWord = async ({
 	wordId,
 	lexiconList,
 	setLexiconList,
-	setIsLoading,
 	setSnackbarOpen,
 	setSnackbarMessage,
 	setSnackbarColor
@@ -24,15 +22,12 @@ export const handleRemoveUserWord = async ({
 	let snackbarColor = 'success' as SnackbarContextProps['snackbarColor'];
 
 	try {
-		setIsLoading(true);
-
 		({ message } = await removeUserWord({ userId, wordId }));
 		setLexiconList(lexiconList.filter(w => w.wordId !== wordId));
 	} catch (error) {
 		message = String(error);
 		snackbarColor = 'error';
 	} finally {
-		setIsLoading(false);
 		setSnackbarOpen(true);
 		setSnackbarMessage(message);
 		setSnackbarColor(snackbarColor);

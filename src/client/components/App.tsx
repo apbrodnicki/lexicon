@@ -7,6 +7,7 @@ import '@client/css/app.css';
 import '@client/css/book-loader.css';
 import '@client/css/legal-pad.css';
 import { handleAuth } from '@client/services/auth/authService';
+import { handleGetUserWords } from '@client/services/dictionary/handleGetUserWords';
 import { Box } from '@mui/material';
 import type { Word } from '@shared/models/models';
 import React, { useEffect, useState } from 'react';
@@ -31,11 +32,7 @@ export const App = (): React.JSX.Element => {
 	const [snackbarMessage, setSnackbarMessage] = useState<string>('');
 	const [snackbarColor, setSnackbarColor] = useState<'success' | 'info' | 'warning' | 'error'>('info');
 
-	const [lexiconList, setLexiconList] = useState<Word[]>(() => {
-		const list = localStorage.getItem('lexicon-list');
-
-		return (list !== null) ? JSON.parse(list) : [];
-	});
+	const [lexiconList, setLexiconList] = useState<Word[]>([]);
 
 	useEffect(() => {
 		const validateUser = async (): Promise<void> => {
@@ -46,8 +43,14 @@ export const App = (): React.JSX.Element => {
 	}, []);
 
 	useEffect(() => {
-		localStorage.setItem('lexicon-list', JSON.stringify(lexiconList));
-	}, [lexiconList]);
+		const getLexiconList = async (): Promise<void> => {
+			await handleGetUserWords({ userId, setIsLoading, setLexiconList, setSnackbarOpen, setSnackbarMessage, setSnackbarColor });
+		};
+
+		if (userId !== 0) {
+			getLexiconList();
+		}
+	}, [userId]);
 
 	return (
 		<Box id='lexicon' className='page-layout legal-pad'>

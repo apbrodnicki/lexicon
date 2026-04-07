@@ -3,10 +3,15 @@ import { logout } from '@client/api/auth/logout';
 import { register } from '@client/api/auth/register';
 import { validate } from '@client/api/auth/validate';
 import type { SnackbarContextProps } from '@client/contexts/SnackbarContext';
-import type { SnackbarSetProps, User } from '@shared/models/models';
+import type { SnackbarSetProps, User, Word } from '@shared/models/models';
 
-interface HandleAuthNoCredentialProps {
-	action: 'Logout' | 'Validate';
+interface HandleAuthValidateProps {
+	action: 'Validate';
+}
+
+interface HandleAuthLogoutProps {
+	action: 'Logout';
+	setLexiconList: React.Dispatch<React.SetStateAction<Word[]>>;
 }
 
 interface HandleAuthCredentialProps {
@@ -22,7 +27,7 @@ interface HandleAuthSharedProps extends SnackbarSetProps {
 	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-type HandleAuthProps = (HandleAuthNoCredentialProps | HandleAuthCredentialProps) & HandleAuthSharedProps;
+type HandleAuthProps = (HandleAuthValidateProps | HandleAuthLogoutProps | HandleAuthCredentialProps) & HandleAuthSharedProps;
 
 export const handleAuth = async ({
 	action,
@@ -36,6 +41,7 @@ export const handleAuth = async ({
 	...rest
 }: HandleAuthProps): Promise<boolean> => {
 	const { username, password } = rest as HandleAuthCredentialProps;
+	const { setLexiconList } = rest as HandleAuthLogoutProps;
 	let message = '';
 	let user: User;
 	let success = false;
@@ -62,6 +68,7 @@ export const handleAuth = async ({
 				setIsAuthenticated(false);
 				setUserId(0);
 				setUsername('');
+				setLexiconList([]);
 				break;
 			case 'Validate':
 				try {

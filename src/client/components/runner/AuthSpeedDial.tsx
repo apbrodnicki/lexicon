@@ -1,4 +1,5 @@
 import { AuthContext } from '@client/contexts/AuthContext';
+import { LexiconListContext } from '@client/contexts/LexiconListContext';
 import { LoadingContext } from '@client/contexts/LoadingContext';
 import { SnackbarContext } from '@client/contexts/SnackbarContext';
 import { handleAuth } from '@client/services/auth/authService';
@@ -22,6 +23,7 @@ export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.
 	const { setIsLoading } = useContext(LoadingContext);
 	const { isAuthenticated, setIsAuthenticated, setUserId, setUsername } = useContext(AuthContext);
 	const { setSnackbarOpen, setSnackbarMessage, setSnackbarColor } = useContext(SnackbarContext);
+	const { setLexiconList } = useContext(LexiconListContext);
 
 	const speedDialActions: SpeedDialActionInterface[] = [];
 
@@ -35,7 +37,7 @@ export const AuthSpeedDial = ({ setAuthDialogOpen }: AuthSpeedDialProps): React.
 		if (action === 'Login') {
 			setAuthDialogOpen(true);
 		} else if (action === 'Logout') {
-			await handleAuth({ action, setIsAuthenticated, setUserId, setUsername, setIsLoading, setSnackbarOpen, setSnackbarMessage, setSnackbarColor });
+			await handleAuth({ action, setIsAuthenticated, setUserId, setUsername, setLexiconList, setIsLoading, setSnackbarOpen, setSnackbarMessage, setSnackbarColor });
 		}
 	};
 
